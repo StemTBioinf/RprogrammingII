@@ -10,3 +10,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Shit gets real now.....
+In the first R workshop you were shown the basics of the R language, subsetting vector and matricies, writing functions and basic plotting. Today we're going to roll all that together and start looking at how to wrap all these things up into an R package that will use S4 classes that you will make available on github.
+
+This will be a fairly intense workshop, but if you can crack it will boost your knowledge and confidence.
+
+## The first thing we'll do is revisit `lists` from the first workshop. Here is the code we used to make one:
+```{r}
+alpha <- LETTERS[1:8]
+mat <- matrix(rnorm(40),nrow=8)
+listex1  <- list(char=alpha,nums=mat)
+listex1
+```

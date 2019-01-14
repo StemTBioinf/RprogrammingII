@@ -14,10 +14,20 @@ In the first R workshop you were shown the basics of the R language, subsetting 
 
 This will be a fairly intense workshop, but if you can crack it will boost your knowledge and confidence.
 
-## The first thing we'll do is revisit `lists` from the first workshop. Here is the code we used to make one:
+The first thing we'll do is revisit `lists` from the first workshop. Here is the code we used to make one:
+
 ```{r}
 alpha <- LETTERS[1:8]
 mat <- matrix(rnorm(40),nrow=8)
 listex1  <- list(char=alpha,nums=mat)
 listex1
+```
+
+You will rememver that elements of a list can be accessed using the `$` character, so'
+```{r}
+listex1$mat
+```
+and subset in the usual way:
+```{r}
+listex1$mat[2:3,] #prints just rows 2 and 3
 ```

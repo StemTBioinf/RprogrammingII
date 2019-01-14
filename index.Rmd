@@ -1,0 +1,12 @@
+---
+title: "Foundations of R programming II"
+author: "Shamit Soneji"
+date: "12/10/2018"
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Shit gets real now.....

@@ -19,15 +19,91 @@ The first thing we'll do is revisit `lists` from the first workshop. Here is the
 ```{r}
 alpha <- LETTERS[1:8]
 mat <- matrix(rnorm(40),nrow=8)
-listex1  <- list(char=alpha,nums=mat)
+listex1  <- list(char=alpha,data=mat)
 listex1
 ```
 
-You will rememver that elements of a list can be accessed using the `$` character, so'
+You will rememver that elements of a list can be accessed using the `$` character, so:
 ```{r}
-listex1$mat
+listex1$data
 ```
 and subset in the usual way:
 ```{r}
-listex1$mat[2:3,] #prints just rows 2 and 3
+listex1$data[2:3,] #prints just rows 2 and 3
 ```
+
+Now we can write a function that takes the average of the columns in the matrix.
+
+```{r}
+
+get.col.means <- function(lst){
+  cl.mns <- apply(lst$data,2,mean)
+  cl.mns
+}
+```
+
+The funtion addresses the matrix in the list using `$data` and calculates the column means using apply as we did in in RI. No we can try this on our list:
+
+```{r}
+get.col.means(listex1)
+```
+So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
+
+***Exercise*** Read in the single cell data we used in the last tutorial (http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt) and make a list called `hspc` where the expression values are placed in an element called `$data`.
+
+```{r}
+
+exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="")
+hspc <- list(data=exp.vals)
+
+```
+Lets use our function from earlier to get the column means:
+```{r}
+expr.col.mens <- get.col.means(hspc)
+```
+Oh fark! What happened?
+
+The apply function expects a matrix. We can see what type of object hspc$data is by using:
+```{r}
+class(hspc$data)
+```
+
+Its a data.frame`. You need to supply a matrix, so lets convert it:
+
+```{r}
+hspc$data <- as.matrix(hspc$data)
+expr.col.mens <- get.col.means(hspc)
+expr.col.mens[1:10] # the first 10 avg values
+```
+
+This is the problem with functions. They don't check what they are getting, so if they get something incompatible the code will fail and you'll get nothing.
+
+This is why classes are a good idea. They are containers for data where the class/type of data needs to be stated up front so downstream functions get the correcty formatted objects.
+
+### S4 classes
+
+You can think of S4 classes as a list where everything is checked first before the list is made. Lets make a simple S4 class called `scell`:
+
+```{r}
+setClass("scell",slots=c(data="matrix"))
+```
+This sets up an S4 class where it expects a matrix for it to be instantiated. Lets try and instantiate a `scell` class by calling `new` using the data you read into `exp.vals`:
+
+```{r,eval=F}
+hspc.s4 <- new("scell",data=exp.vals)
+```
+
+Didn't work did it? When we call new is cheks to see that the slot `data` is of type `matrix`. In this case we gave a `data.frame` which is why it failed. To make it work we need to do:
+
+```{r}
+hspc.s4 <- new("scell",data=as.matrix(exp.vals))
+```
+
+This works. The `scell` object gets a required matrix and a new object `hspc.s4` which is an S4 class is made. Elemants of an S4 class are kept in `slots` and we can access them using the `@` symbol.
+
+```{r}
+hspc.s4@data[1:10,1:10] # first 10 rows and 10 columns
+````
+
+
+

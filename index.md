@@ -23,15 +23,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##            [,1]        [,2]       [,3]         [,4]        [,5]
-    ## [1,] -0.5962447 -1.49025512  0.6501673 -0.008373624 -0.38890146
-    ## [2,] -0.3321055 -1.34162257  0.5246728  0.810226439 -0.61983647
-    ## [3,]  1.2874062 -1.74213240 -1.0998891  0.003657937  0.07420541
-    ## [4,] -0.6575718 -0.01777613 -0.5374377  1.136077742 -0.36426138
-    ## [5,] -3.0077702 -0.23055071  1.1144021 -0.782697230  0.66219859
-    ## [6,]  0.5080752  0.29999909  0.2791978 -0.055043277  0.54565805
-    ## [7,]  0.1310888 -0.67662655  0.5219338  0.825490016 -0.97519459
-    ## [8,] -0.6932967  1.88066407  0.7954516 -0.829769965  0.41902319
+    ##             [,1]       [,2]        [,3]       [,4]        [,5]
+    ## [1,]  0.87238280 -0.9412484  0.59460074  1.2691876  2.80806584
+    ## [2,]  0.86642570 -0.6012126 -0.41001279 -0.4267889  1.43973427
+    ## [3,] -0.30642222  1.2255967 -0.15296598 -1.3874687  0.23742448
+    ## [4,] -0.26696880 -0.3354458 -0.01956228  0.7990826 -1.11846215
+    ## [5,]  0.25451056  0.6429669 -1.38074950  1.6151788 -0.21512664
+    ## [6,] -0.81673545 -0.2677959  0.10029964  0.4018044  0.04899058
+    ## [7,]  0.06091362 -0.1014048  1.27198122 -0.3948766  0.84976128
+    ## [8,]  1.26857438 -0.7411288 -0.54969860  0.1848064 -0.51534998
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -39,15 +39,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##            [,1]        [,2]       [,3]         [,4]        [,5]
-    ## [1,] -0.5962447 -1.49025512  0.6501673 -0.008373624 -0.38890146
-    ## [2,] -0.3321055 -1.34162257  0.5246728  0.810226439 -0.61983647
-    ## [3,]  1.2874062 -1.74213240 -1.0998891  0.003657937  0.07420541
-    ## [4,] -0.6575718 -0.01777613 -0.5374377  1.136077742 -0.36426138
-    ## [5,] -3.0077702 -0.23055071  1.1144021 -0.782697230  0.66219859
-    ## [6,]  0.5080752  0.29999909  0.2791978 -0.055043277  0.54565805
-    ## [7,]  0.1310888 -0.67662655  0.5219338  0.825490016 -0.97519459
-    ## [8,] -0.6932967  1.88066407  0.7954516 -0.829769965  0.41902319
+    ##             [,1]       [,2]        [,3]       [,4]        [,5]
+    ## [1,]  0.87238280 -0.9412484  0.59460074  1.2691876  2.80806584
+    ## [2,]  0.86642570 -0.6012126 -0.41001279 -0.4267889  1.43973427
+    ## [3,] -0.30642222  1.2255967 -0.15296598 -1.3874687  0.23742448
+    ## [4,] -0.26696880 -0.3354458 -0.01956228  0.7990826 -1.11846215
+    ## [5,]  0.25451056  0.6429669 -1.38074950  1.6151788 -0.21512664
+    ## [6,] -0.81673545 -0.2677959  0.10029964  0.4018044  0.04899058
+    ## [7,]  0.06091362 -0.1014048  1.27198122 -0.3948766  0.84976128
+    ## [8,]  1.26857438 -0.7411288 -0.54969860  0.1848064 -0.51534998
 
 and subset in the usual way:
 
@@ -55,9 +55,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##            [,1]      [,2]       [,3]        [,4]        [,5]
-    ## [1,] -0.3321055 -1.341623  0.5246728 0.810226439 -0.61983647
-    ## [2,]  1.2874062 -1.742132 -1.0998891 0.003657937  0.07420541
+    ##            [,1]       [,2]       [,3]       [,4]      [,5]
+    ## [1,]  0.8664257 -0.6012126 -0.4100128 -0.4267889 1.4397343
+    ## [2,] -0.3064222  1.2255967 -0.1529660 -1.3874687 0.2374245
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -74,7 +74,7 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1] -0.42005234 -0.41478754  0.28106232  0.13744600 -0.08088858
+    ## [1]  0.24158507 -0.13995908 -0.06826344  0.25761570  0.44187971
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
@@ -166,3 +166,76 @@ hspc.s4@data[1:10,1:10] # first 10 rows and 10 columns
     ## Hmgcs1   0.4716092  1.527437 3.122267
     ## Zfp947   0.4716092  0.000000 0.000000
     ## Atad2    8.4770954  2.512690 1.835594
+
+***Exercise*** Write a function called `get.var.genes` that will take a `scell` S4 object and calculate the top N most variable genes (i.e we want a vector of gene names). The basis of the code is in the RI tutorial. Hint: the function that you create will need two input arguments.
+
+``` r
+get.var.genes <- function(sco,nvar){
+  
+  genes.var <- apply(sco@data,1,var)
+  top.var.genes <- names(rev(sort(genes.var))[1:nvar])
+  top.var.genes
+}
+```
+
+Lets try and run this and get the top 10 maost variable genes:
+
+``` r
+get.var.genes(hspc.s4,10)
+```
+
+    ##  [1] "Elane" "Ctsg"  "Mpo"   "Car1"  "Ms4a3" "Mpl"   "Ly6c2" "Klf1" 
+    ##  [9] "Nkg7"  "Ces2g"
+
+Ok, this seems to work nicely. All we need to do now is put the results somewhere convenient, and the best place for this is back in the `hspc.s4` object in another slot called `var.genes`. Lets modify the function to do this:
+
+``` r
+get.var.genes <- function(sco,nvar){
+  
+  genes.var <- apply(sco@data,1,var)
+  top.var.genes <- names(rev(sort(genes.var))[1:nvar])
+  sco@var.genes <- top.var.genes #puts the var genes into a new slot 
+  sco #returns the new object
+}
+```
+
+Run it again:
+
+``` r
+hspc.s4 <- get.var.genes(hspc.s4,10)
+```
+
+Did it work? Did it f\*\*k. Why not?
+
+We need to have a slot made in the S4 calss up front before we try to populate it. In this case we know that we have a characters being returned, so we it will be of type `character`.
+
+``` r
+setClass("scell",slots=c(data="matrix",var.genes="character"))
+```
+
+We need to make make a new instance of `hspc.s4` first so we have the new class definition:
+
+``` r
+hspc.s4 <- new("scell",data=as.matrix(exp.vals))
+slotNames(hspc.s4) # we can see which slots you have available
+```
+
+    ## [1] "data"      "var.genes"
+
+``` r
+hspc.s4@var.genes #empty
+```
+
+    ## character(0)
+
+Run the var genes function again:
+
+``` r
+hspc.s4 <- get.var.genes(hspc.s4,10)
+hspc.s4@var.genes
+```
+
+    ##  [1] "Elane" "Ctsg"  "Mpo"   "Car1"  "Ms4a3" "Mpl"   "Ly6c2" "Klf1" 
+    ##  [9] "Nkg7"  "Ces2g"
+
+It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store further down that line, and helps you regularise your functions. If we were using lists you could make slots on-the-fly and this normally leads to downstream chaos.

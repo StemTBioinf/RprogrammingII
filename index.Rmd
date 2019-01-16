@@ -105,5 +105,63 @@ This works. The `scell` object gets a required matrix and a new object `hspc.s4`
 hspc.s4@data[1:10,1:10] # first 10 rows and 10 columns
 ````
 
+***Exercise***
+Write a function called `get.var.genes` that will take a `scell` S4 object and calculate the top N most variable genes (i.e we want a vector of gene names). The basis of the code is in the RI tutorial. Hint: the function that you create will need two input arguments.
+
+```{r}
+
+get.var.genes <- function(sco,nvar){
+  
+  genes.var <- apply(sco@data,1,var)
+  top.var.genes <- names(rev(sort(genes.var))[1:nvar])
+  top.var.genes
+}
+```
+
+Lets try and run this and get the top 10 maost variable genes:
+
+```{r}
+get.var.genes(hspc.s4,10)
+```
+Ok, this seems to work nicely. All we need to do now is put the results somewhere convenient, and the best place for this is back in the `hspc.s4` object in another slot called `var.genes`. Lets modify the function to do this:
+
+```{r}
+get.var.genes <- function(sco,nvar){
+  
+  genes.var <- apply(sco@data,1,var)
+  top.var.genes <- names(rev(sort(genes.var))[1:nvar])
+  sco@var.genes <- top.var.genes #puts the var genes into a new slot 
+  sco #returns the new object
+}
+```
+Run it again:
+```{r,eval=F}
+hspc.s4 <- get.var.genes(hspc.s4,10)
+```
+Did it work? Did it f**k. Why not?
+
+We need to have a slot made in the S4 calss up front before we try to populate it. In this case we know that we have a characters being returned, so we it will be of type `character`.
+```{r}
+setClass("scell",slots=c(data="matrix",var.genes="character"))
+```
+We need to make make a new instance of `hspc.s4` first so we have the new class definition:
+
+```{r}
+hspc.s4 <- new("scell",data=as.matrix(exp.vals))
+slotNames(hspc.s4) # we can see which slots you have available
+hspc.s4@var.genes #empty
+```
+Run the var genes function again:
+```{r}
+hspc.s4 <- get.var.genes(hspc.s4,10)
+hspc.s4@var.genes
+```
+It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store further down that line, and helps you regularise your functions. If we were using lists you could make slots on-the-fly and this normally leads to downstream chaos.
+
+
+
+
+
+
 
 

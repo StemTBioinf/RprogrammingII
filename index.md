@@ -23,15 +23,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##              [,1]       [,2]        [,3]        [,4]       [,5]
-    ## [1,]  1.920507405  1.2801509  0.82703251 -0.34372114  0.8908967
-    ## [2,] -0.006165821 -1.7854874 -0.57638974 -0.01136132 -0.7724696
-    ## [3,] -0.066858690 -0.6521679 -0.43012110 -0.35095556 -1.3137370
-    ## [4,] -1.408008970 -0.6988977 -0.54705520 -0.24257957  0.6593890
-    ## [5,] -2.548486911 -1.6942835  1.40318469  2.15244015  1.3017112
-    ## [6,] -0.192353134  0.6471985  0.96202082  0.62020676  0.2523598
-    ## [7,] -1.401459678  1.3711229 -1.07488152 -0.08143699  0.7840095
-    ## [8,]  0.982613781 -1.8713072  0.02072186  1.25657963 -0.4388917
+    ##            [,1]       [,2]       [,3]       [,4]        [,5]
+    ## [1,]  1.5426124 -0.1247931  0.6703120 -0.9146708  0.44608386
+    ## [2,] -0.1826749 -0.1936071  0.2123387 -0.4763551  0.14630056
+    ## [3,]  1.2092077  0.2593080 -1.3515259  0.9472195 -1.73735498
+    ## [4,] -1.6723767 -0.9564836 -0.2462077 -0.6167089  0.02819018
+    ## [5,]  0.7600935  0.4118132  0.5316616 -1.0401826 -1.05053622
+    ## [6,]  0.5574719  1.8098199 -0.5172853  1.9582633 -0.24942479
+    ## [7,] -0.6481699  0.8829391  0.9700108  0.4767839 -0.11752169
+    ## [8,] -0.1175089 -1.1193841  0.6663521 -0.5426942  1.77415109
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -39,15 +39,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##              [,1]       [,2]        [,3]        [,4]       [,5]
-    ## [1,]  1.920507405  1.2801509  0.82703251 -0.34372114  0.8908967
-    ## [2,] -0.006165821 -1.7854874 -0.57638974 -0.01136132 -0.7724696
-    ## [3,] -0.066858690 -0.6521679 -0.43012110 -0.35095556 -1.3137370
-    ## [4,] -1.408008970 -0.6988977 -0.54705520 -0.24257957  0.6593890
-    ## [5,] -2.548486911 -1.6942835  1.40318469  2.15244015  1.3017112
-    ## [6,] -0.192353134  0.6471985  0.96202082  0.62020676  0.2523598
-    ## [7,] -1.401459678  1.3711229 -1.07488152 -0.08143699  0.7840095
-    ## [8,]  0.982613781 -1.8713072  0.02072186  1.25657963 -0.4388917
+    ##            [,1]       [,2]       [,3]       [,4]        [,5]
+    ## [1,]  1.5426124 -0.1247931  0.6703120 -0.9146708  0.44608386
+    ## [2,] -0.1826749 -0.1936071  0.2123387 -0.4763551  0.14630056
+    ## [3,]  1.2092077  0.2593080 -1.3515259  0.9472195 -1.73735498
+    ## [4,] -1.6723767 -0.9564836 -0.2462077 -0.6167089  0.02819018
+    ## [5,]  0.7600935  0.4118132  0.5316616 -1.0401826 -1.05053622
+    ## [6,]  0.5574719  1.8098199 -0.5172853  1.9582633 -0.24942479
+    ## [7,] -0.6481699  0.8829391  0.9700108  0.4767839 -0.11752169
+    ## [8,] -0.1175089 -1.1193841  0.6663521 -0.5426942  1.77415109
 
 and subset in the usual way:
 
@@ -55,9 +55,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##              [,1]       [,2]       [,3]        [,4]       [,5]
-    ## [1,] -0.006165821 -1.7854874 -0.5763897 -0.01136132 -0.7724696
-    ## [2,] -0.066858690 -0.6521679 -0.4301211 -0.35095556 -1.3137370
+    ##            [,1]       [,2]       [,3]       [,4]       [,5]
+    ## [1,] -0.1826749 -0.1936071  0.2123387 -0.4763551  0.1463006
+    ## [2,]  1.2092077  0.2593080 -1.3515259  0.9472195 -1.7373550
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -74,7 +74,7 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1] -0.34002650 -0.42545894  0.07306404  0.37489650  0.17040849
+    ## [1]  0.18108189  0.12120154  0.11695705 -0.02604311 -0.09501400
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
@@ -284,3 +284,53 @@ document()
 ```
 
 This takes the lines of documentation that you created an forms the manual that you have in the newly created "man" folder. It also updates other files automatically such as the NAMESPACE file.
+
+Now lets make a new R script that contains the function that gets the variable genes. Open a new R scripts and put in the following:
+
+``` r
+#'Calculates the top N variable genes from a scell object
+#'@param sco An scell object
+#'@param nvar The number of genes we wich to retrieve
+#'@export get.var.genes
+get.var.genes <- function(sco,nvar){
+  
+  genes.var <- apply(sco@data,1,var)
+  top.var.genes <- names(rev(sort(genes.var))[1:nvar])
+  sco@var.genes <- top.var.genes #puts the var genes into a new slot 
+  sco #returns the new object
+}
+```
+
+Save the file as "GetVarGenes.R" in the "R" folder and now run:
+
+``` r
+document()
+```
+
+The new function will be added to the manual pages, and thats it, you have now made your first R package that lets you make a new scell class and then calculate the N top variable genes. All we need to do now is install it, and we do this by issuing the command:
+
+``` r
+install()
+```
+
+Done! Whenever we fire up R we can now call our package using:
+
+``` r
+library(MyFirstPackage)
+```
+
+Lets try it out:
+
+``` r
+exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="")
+hspc.s4 <- new("scell",data=as.matrix(exp.vals))
+hspc.s4 <- get.var.genes(hspc.s4,10)
+hspc.s4@var.genes[1:10]
+```
+
+We have the rudiments of a package here, so lets expand on it some more and make it do two more things:
+
+-   Make a function that reads the inputfile and makes an scell object
+-   Plots a heatmap of the N variable genes you find from using the earlier function.
+
+Go!

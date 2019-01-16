@@ -228,12 +228,12 @@ install()
 
 Done! Whenever we fire up R we can now call our package using:
 
-```{r,eval=F}
+```{r,eval=T}
 library(MyFirstPackage)
 ```
 
 Lets try it out:
-```{r,eval=F}
+```{r,eval=T}
 exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="")
 hspc.s4 <- new("scell",data=as.matrix(exp.vals))
 hspc.s4 <- get.var.genes(hspc.s4,10)
@@ -242,7 +242,7 @@ hspc.s4@var.genes[1:10]
 
 We have the rudiments of a package here, so lets expand on it some more and make it do two more things:
 
-* Make a function that reads the inputfile and makes an scell object
+* Make a function that reads the inputfile and makes an scell object imediately.
 * Plots a heatmap of the N variable genes you find from using the earlier function.
 
 Go!

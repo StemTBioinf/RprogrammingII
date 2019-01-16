@@ -158,7 +158,46 @@ hspc.s4@var.genes
 ```
 It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store further down that line, and helps you regularise your functions. If we were using lists you could make slots on-the-fly and this normally leads to downstream chaos.
 
+### Packages
 
+After a while you start to develop a large back of functions and classes which you use routinely in your work as you get more confident working in R. While you could keep all these functions in an R script, the nicer thing to do would be to roll them all into a package. Packages also make you do something very important, and that is document your code. Useful for when yo go back to things after a long time. To do this we need to install two packages to help us, `devtools` and `roxygen2`.
+
+```{r,eval=F}
+install.packages(devtools)
+install.packages("roxygen2")
+```
+Then call the libraries:
+```{r}
+library(devtools)
+library(roxygen2)
+```
+
+Make a new folder called `RPackages` on your laptop and change you working session to it.
+
+You create the start of a new package using the `create` function. Create a package called `MyFirstPackage`:
+```{r,eval=F}
+create("MyFirstPackage")
+```
+When you have done that set the working directory to the folder that was just created. If you go the files panel on the bottom-right side you will see a "Files" tab. Use that to navigate to the "MyFirstPackage" folder. In there you will see a few things. Open the "DESCRIPTION" file to see whats in it.
+
+Lets start banking our functions in this package. Go to "File" -> "New File" -> "R Script"
+
+Its always a good idea to make many R scipts with less in them, than having one R scipt with everything in it. In this script the only thing we want to do is define the class. It looks a little like this:
+
+```{r,eval=F}
+#'Class defintion of an scell object
+#`
+#`The class takes a matrix of values and needs row and column names.
+setClass("scell",slots=c(data="matrix",var.genes="character"))
+```
+
+Thats it! Save the script in the "R" folder which is where all the scripts should be kept. Call it `scellClass.R`. What you need to do now is call the `document()` function:
+
+```{r,eval=F}
+document()
+```
+
+This takes the lines of documentation that you created an forms the manual that you have in the newly created "man" folder. It also updates other files automatically such as the NAMESPACE file.
 
 
 

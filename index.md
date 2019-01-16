@@ -23,15 +23,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##             [,1]       [,2]        [,3]       [,4]        [,5]
-    ## [1,]  0.87238280 -0.9412484  0.59460074  1.2691876  2.80806584
-    ## [2,]  0.86642570 -0.6012126 -0.41001279 -0.4267889  1.43973427
-    ## [3,] -0.30642222  1.2255967 -0.15296598 -1.3874687  0.23742448
-    ## [4,] -0.26696880 -0.3354458 -0.01956228  0.7990826 -1.11846215
-    ## [5,]  0.25451056  0.6429669 -1.38074950  1.6151788 -0.21512664
-    ## [6,] -0.81673545 -0.2677959  0.10029964  0.4018044  0.04899058
-    ## [7,]  0.06091362 -0.1014048  1.27198122 -0.3948766  0.84976128
-    ## [8,]  1.26857438 -0.7411288 -0.54969860  0.1848064 -0.51534998
+    ##              [,1]       [,2]        [,3]        [,4]       [,5]
+    ## [1,]  1.920507405  1.2801509  0.82703251 -0.34372114  0.8908967
+    ## [2,] -0.006165821 -1.7854874 -0.57638974 -0.01136132 -0.7724696
+    ## [3,] -0.066858690 -0.6521679 -0.43012110 -0.35095556 -1.3137370
+    ## [4,] -1.408008970 -0.6988977 -0.54705520 -0.24257957  0.6593890
+    ## [5,] -2.548486911 -1.6942835  1.40318469  2.15244015  1.3017112
+    ## [6,] -0.192353134  0.6471985  0.96202082  0.62020676  0.2523598
+    ## [7,] -1.401459678  1.3711229 -1.07488152 -0.08143699  0.7840095
+    ## [8,]  0.982613781 -1.8713072  0.02072186  1.25657963 -0.4388917
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -39,15 +39,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##             [,1]       [,2]        [,3]       [,4]        [,5]
-    ## [1,]  0.87238280 -0.9412484  0.59460074  1.2691876  2.80806584
-    ## [2,]  0.86642570 -0.6012126 -0.41001279 -0.4267889  1.43973427
-    ## [3,] -0.30642222  1.2255967 -0.15296598 -1.3874687  0.23742448
-    ## [4,] -0.26696880 -0.3354458 -0.01956228  0.7990826 -1.11846215
-    ## [5,]  0.25451056  0.6429669 -1.38074950  1.6151788 -0.21512664
-    ## [6,] -0.81673545 -0.2677959  0.10029964  0.4018044  0.04899058
-    ## [7,]  0.06091362 -0.1014048  1.27198122 -0.3948766  0.84976128
-    ## [8,]  1.26857438 -0.7411288 -0.54969860  0.1848064 -0.51534998
+    ##              [,1]       [,2]        [,3]        [,4]       [,5]
+    ## [1,]  1.920507405  1.2801509  0.82703251 -0.34372114  0.8908967
+    ## [2,] -0.006165821 -1.7854874 -0.57638974 -0.01136132 -0.7724696
+    ## [3,] -0.066858690 -0.6521679 -0.43012110 -0.35095556 -1.3137370
+    ## [4,] -1.408008970 -0.6988977 -0.54705520 -0.24257957  0.6593890
+    ## [5,] -2.548486911 -1.6942835  1.40318469  2.15244015  1.3017112
+    ## [6,] -0.192353134  0.6471985  0.96202082  0.62020676  0.2523598
+    ## [7,] -1.401459678  1.3711229 -1.07488152 -0.08143699  0.7840095
+    ## [8,]  0.982613781 -1.8713072  0.02072186  1.25657963 -0.4388917
 
 and subset in the usual way:
 
@@ -55,9 +55,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##            [,1]       [,2]       [,3]       [,4]      [,5]
-    ## [1,]  0.8664257 -0.6012126 -0.4100128 -0.4267889 1.4397343
-    ## [2,] -0.3064222  1.2255967 -0.1529660 -1.3874687 0.2374245
+    ##              [,1]       [,2]       [,3]        [,4]       [,5]
+    ## [1,] -0.006165821 -1.7854874 -0.5763897 -0.01136132 -0.7724696
+    ## [2,] -0.066858690 -0.6521679 -0.4301211 -0.35095556 -1.3137370
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -74,7 +74,7 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1]  0.24158507 -0.13995908 -0.06826344  0.25761570  0.44187971
+    ## [1] -0.34002650 -0.42545894  0.07306404  0.37489650  0.17040849
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
@@ -239,3 +239,48 @@ hspc.s4@var.genes
     ##  [9] "Nkg7"  "Ces2g"
 
 It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store further down that line, and helps you regularise your functions. If we were using lists you could make slots on-the-fly and this normally leads to downstream chaos.
+
+### Packages
+
+After a while you start to develop a large back of functions and classes which you use routinely in your work as you get more confident working in R. While you could keep all these functions in an R script, the nicer thing to do would be to roll them all into a package. Packages also make you do something very important, and that is document your code. Useful for when yo go back to things after a long time. To do this we need to install two packages to help us, `devtools` and `roxygen2`.
+
+``` r
+install.packages(devtools)
+install.packages("roxygen2")
+```
+
+Then call the libraries:
+
+``` r
+library(devtools)
+library(roxygen2)
+```
+
+Make a new folder called `RPackages` on your laptop and change you working session to it.
+
+You create the start of a new package using the `create` function. Create a package called `MyFirstPackage`:
+
+``` r
+create("MyFirstPackage")
+```
+
+When you have done that set the working directory to the folder that was just created. If you go the files panel on the bottom-right side you will see a "Files" tab. Use that to navigate to the "MyFirstPackage" folder. In there you will see a few things. Open the "DESCRIPTION" file to see whats in it.
+
+Lets start banking our functions in this package. Go to "File" -&gt; "New File" -&gt; "R Script"
+
+Its always a good idea to make many R scipts with less in them, than having one R scipt with everything in it. In this script the only thing we want to do is define the class. It looks a little like this:
+
+``` r
+#'Class defintion of an scell object
+#`
+#`The class takes a matrix of values and needs row and column names.
+setClass("scell",slots=c(data="matrix",var.genes="character"))
+```
+
+Thats it! Save the script in the "R" folder which is where all the scripts should be kept. Call it `scellClass.R`. What you need to do now is call the `document()` function:
+
+``` r
+document()
+```
+
+This takes the lines of documentation that you created an forms the manual that you have in the newly created "man" folder. It also updates other files automatically such as the NAMESPACE file.

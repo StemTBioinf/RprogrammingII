@@ -23,15 +23,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##            [,1]       [,2]       [,3]       [,4]       [,5]
-    ## [1,]  0.3541122  0.6162324 -1.4629623 -0.1047633 -1.9068446
-    ## [2,] -0.2762069 -1.6806640 -0.8687291 -0.2974464 -0.8864507
-    ## [3,] -0.3326708  1.2454407  0.9063201  0.3585785 -1.8458689
-    ## [4,] -0.5133647  0.3400654  0.4226462  0.6548918 -0.2228491
-    ## [5,] -1.2757068 -1.0001737  0.3071518  0.3770603  0.9574256
-    ## [6,]  0.9964361  1.5555712  0.6697598 -1.2303372  2.0489717
-    ## [7,] -2.5289969  0.9936148  0.2784150  0.9107175  1.2275917
-    ## [8,] -0.8343987  1.5814857  1.0342616  0.4623734 -1.4896937
+    ##             [,1]       [,2]       [,3]        [,4]        [,5]
+    ## [1,]  1.07174644 -0.5318984  0.1407832  0.00917666 -0.53251506
+    ## [2,] -0.02961857  0.6863280  0.2157220  2.27397847 -1.16499410
+    ## [3,] -1.57292350  0.5438431 -1.2333490  1.88838382 -0.92308986
+    ## [4,] -0.64019967  0.1675704 -0.2333311 -0.62887862 -1.69356124
+    ## [5,]  0.06051160  1.4652335  0.1769368 -1.25753408 -0.95423037
+    ## [6,] -0.84426913  2.1367394 -1.0471945  0.79677905  0.45308020
+    ## [7,] -1.24427079  0.5094319 -1.2492948 -1.90605404 -0.02180789
+    ## [8,] -1.53034244 -0.1598624  1.7057640 -1.53798041  0.47367442
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -39,15 +39,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##            [,1]       [,2]       [,3]       [,4]       [,5]
-    ## [1,]  0.3541122  0.6162324 -1.4629623 -0.1047633 -1.9068446
-    ## [2,] -0.2762069 -1.6806640 -0.8687291 -0.2974464 -0.8864507
-    ## [3,] -0.3326708  1.2454407  0.9063201  0.3585785 -1.8458689
-    ## [4,] -0.5133647  0.3400654  0.4226462  0.6548918 -0.2228491
-    ## [5,] -1.2757068 -1.0001737  0.3071518  0.3770603  0.9574256
-    ## [6,]  0.9964361  1.5555712  0.6697598 -1.2303372  2.0489717
-    ## [7,] -2.5289969  0.9936148  0.2784150  0.9107175  1.2275917
-    ## [8,] -0.8343987  1.5814857  1.0342616  0.4623734 -1.4896937
+    ##             [,1]       [,2]       [,3]        [,4]        [,5]
+    ## [1,]  1.07174644 -0.5318984  0.1407832  0.00917666 -0.53251506
+    ## [2,] -0.02961857  0.6863280  0.2157220  2.27397847 -1.16499410
+    ## [3,] -1.57292350  0.5438431 -1.2333490  1.88838382 -0.92308986
+    ## [4,] -0.64019967  0.1675704 -0.2333311 -0.62887862 -1.69356124
+    ## [5,]  0.06051160  1.4652335  0.1769368 -1.25753408 -0.95423037
+    ## [6,] -0.84426913  2.1367394 -1.0471945  0.79677905  0.45308020
+    ## [7,] -1.24427079  0.5094319 -1.2492948 -1.90605404 -0.02180789
+    ## [8,] -1.53034244 -0.1598624  1.7057640 -1.53798041  0.47367442
 
 and subset in the usual way:
 
@@ -55,9 +55,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##            [,1]      [,2]       [,3]       [,4]       [,5]
-    ## [1,] -0.2762069 -1.680664 -0.8687291 -0.2974464 -0.8864507
-    ## [2,] -0.3326708  1.245441  0.9063201  0.3585785 -1.8458689
+    ##             [,1]      [,2]      [,3]     [,4]       [,5]
+    ## [1,] -0.02961857 0.6863280  0.215722 2.273978 -1.1649941
+    ## [2,] -1.57292350 0.5438431 -1.233349 1.888384 -0.9230899
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -74,7 +74,7 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1] -0.5513496  0.4564466  0.1608579  0.1413843 -0.2647148
+    ## [1] -0.59117076  0.60217320 -0.19049544 -0.04526615 -0.54543049
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
@@ -319,24 +319,14 @@ Done! Whenever we fire up R we can now call our package using:
 library(MyFirstPackage)
 ```
 
-    ## 
-    ## Attaching package: 'MyFirstPackage'
-
-    ## The following object is masked _by_ '.GlobalEnv':
-    ## 
-    ##     get.var.genes
-
 Lets try it out:
 
 ``` r
 exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="")
 hspc.s4 <- new("scell",data=as.matrix(exp.vals))
-hspc.s4 <- get.var.genes(hspc.s4,10)
+hspc.s4 <- get.var.genes(hspc.s4,500)
 hspc.s4@var.genes[1:10]
 ```
-
-    ##  [1] "Elane" "Ctsg"  "Mpo"   "Car1"  "Ms4a3" "Mpl"   "Ly6c2" "Klf1" 
-    ##  [9] "Nkg7"  "Ces2g"
 
 We have the rudiments of a package here, so lets expand on it some more and make it do two more things:
 
@@ -344,3 +334,57 @@ We have the rudiments of a package here, so lets expand on it some more and make
 -   Plots a heatmap of the N variable genes you find from using the earlier function.
 
 Go!
+
+Now we're going to extend the capabilities of our package by making a function that will perform a tSNE of the data and plot it in 3D. The first thing we need to do is make sure `MyFirstPackage` can also install other packages it needs to function. In this case we need the `Rtsne` and the `rgl` package. To do this open up the "DESCRIPTION" file and alter it to look like this:
+
+``` r
+Package: MyFirstPackage
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.5.2),
+  Rtsne,
+  rgl
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+```
+
+What happens now is that when `MyFirstPackage` is installed `Rtsne` and `rgl` packages will be installed if they aren't already. Issue the `document()` and `install()` command again after you have saved this file:
+
+``` r
+install()
+```
+
+You will see that it now installs the required extra packages.
+
+***Exercise*** Go the help page for `Rtsne` and work out how to use it. Use it to calcultate a tSNE over 3 dimensions on the hspc.s4 data using the variable genes only. Fins where these co-ordinates are kept in hte output.
+
+``` r
+tsne.out <- Rtsne(t(hspc.s4@data[hspc.s4@var.genes,]),dims = 3)
+dim(tsne.out)
+class(tsne.out)
+```
+
+***Exercise*** Write a function called `CalcTSNE` that takes a `scell` object and a variable `ndim` (that indicates how may dimensions you want to calculate over) and calcultes the tSNE and then puts the coordinates in a slot called `tsne`. Put this into your package in a script called `DimensionReduction.R` and reinstall your package.
+
+Lets try it out on our `hspc.s4` object:
+
+``` r
+library(MyFirstPackage)
+hspc.s4 <- CalcTSNE(hspc.s4,3)
+hspc.s4@tsne
+```
+
+We can plot these using the `rgl.points` function:
+
+``` r
+library(rgl)
+rgl.points(hspc.s4@tsne)
+```
+
+At this point you now have the rudiments of an R package that you can expand on further. You don't have to build them around S4 classes, but it helps.
+
+### Version control

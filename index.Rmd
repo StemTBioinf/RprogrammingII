@@ -228,15 +228,15 @@ install()
 
 Done! Whenever we fire up R we can now call our package using:
 
-```{r,eval=T}
+```{r,eval=F}
 library(MyFirstPackage)
 ```
 
 Lets try it out:
-```{r,eval=T}
+```{r,eval=F}
 exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="")
 hspc.s4 <- new("scell",data=as.matrix(exp.vals))
-hspc.s4 <- get.var.genes(hspc.s4,10)
+hspc.s4 <- get.var.genes(hspc.s4,500)
 hspc.s4@var.genes[1:10]
 ```
 
@@ -248,4 +248,54 @@ We have the rudiments of a package here, so lets expand on it some more and make
 Go!
 
 
+Now we're going to extend the capabilities of our package by making a function that will perform a tSNE of the data and plot it in 3D. The first thing we need to do is make sure `MyFirstPackage` can also install other packages it needs to function. In this case we need the `Rtsne` and the `rgl` package. To do this open up the "DESCRIPTION" file and alter it to look like this:
+
+```{r,eval=F}
+Package: MyFirstPackage
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.5.2),
+  Rtsne,
+  rgl
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+```
+What happens now is that when `MyFirstPackage` is installed `Rtsne` and `rgl` packages will be installed if they aren't already. Issue the `document()` and `install()` command again after you have saved this file:
+
+```{r,eval=F}
+install()
+```
+You will see that it now installs the required extra packages.
+
+***Exercise*** Go the help page for `Rtsne` and work out how to use it. Use it to calcultate a tSNE over 3 dimensions on the hspc.s4 data using the variable genes only. Fins where these co-ordinates are kept in hte output.
+
+
+```{r,eval=FALSE}
+tsne.out <- Rtsne(t(hspc.s4@data[hspc.s4@var.genes,]),dims = 3)
+dim(tsne.out)
+class(tsne.out)
+```
+
+***Exercise*** Write a function called `CalcTSNE` that takes a `scell` object and a variable `ndim` (that indicates how may dimensions you want to calculate over) and calcultes the tSNE and then puts the coordinates in a slot called `tsne`. Put this into your package in a script called `DimensionReduction.R` and reinstall your package.
+
+Lets try it out on our `hspc.s4` object:
+```{r,eval=F}
+library(MyFirstPackage)
+hspc.s4 <- CalcTSNE(hspc.s4,3)
+hspc.s4@tsne
+```
+
+We can plot these using the `rgl.points` function:
+```{r,eval=F}
+library(rgl)
+rgl.points(hspc.s4@tsne)
+```
+
+At this point you now have the rudiments of an R package that you can expand on further. You don't have to build them around S4 classes, but it helps.
+
+### Version control
 

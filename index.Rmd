@@ -297,5 +297,12 @@ rgl.points(hspc.s4@tsne)
 
 At this point you now have the rudiments of an R package that you can expand on further. You don't have to build them around S4 classes, but it helps.
 
-### Version control
+### Getting your package out there with Github
+
+Ths is all well and good, but what do you do if you need your R package and you don't have your laptop, or more often, you want to share you package/code with a collaborator? This is where Github (https://github.com/) comes in really handy. Github is an online repository for code popular with most developers.
+
+Before this workshop you make an account for Github so login now and do the following:
+
+1. Create a new repository and call it `MyFirstPackage`
+2. When you have done this you will see some instructions on getting your file up.
 

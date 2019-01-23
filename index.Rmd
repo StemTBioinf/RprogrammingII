@@ -10,7 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Shit gets real now.....
-In the first R workshop you were shown the basics of the R language, subsetting vector and matricies, writing functions and basic plotting. Today we're going to roll all that together and start looking at how to wrap all these things up into an R package that will use S4 classes that you will make available on github.
+In the first R workshop you were shown the basics of the R language, subsetting vector and matrices, 
+writing functions and basic plotting. Today we're going to roll all that together and start looking at 
+how to wrap all these things up into an R package that will use S4 classes that you will make available on github.
 
 This will be a fairly intense workshop, but if you can crack it will boost your knowledge and confidence.
 
@@ -42,18 +44,21 @@ get.col.means <- function(lst){
 }
 ```
 
-The funtion addresses the matrix in the list using `$data` and calculates the column means using apply as we did in in RI. No we can try this on our list:
+The funtion addresses the matrix in the list using `$data` and calculates the column means using apply as 
+we did in in RI. No we can try this on our list:
 
 ```{r}
 get.col.means(listex1)
 ```
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
-***Exercise*** Read in the single cell data we used in the last tutorial (http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt) and make a list called `hspc` where the expression values are placed in an element called `$data`.
+***Exercise*** Read in the single cell data we used in the last tutorial 
+(http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt) and make a list called `hspc` 
+where the expression values are placed in an element called `$data`.
 
 ```{r}
 
-exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="")
+exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="\t")
 hspc <- list(data=exp.vals)
 
 ```
@@ -76,37 +81,45 @@ expr.col.mens <- get.col.means(hspc)
 expr.col.mens[1:10] # the first 10 avg values
 ```
 
-This is the problem with functions. They don't check what they are getting, so if they get something incompatible the code will fail and you'll get nothing.
+This is the problem with functions. They don't check what they are getting, 
+so if they get something incompatible the code will fail and you'll get nothing.
 
-This is why classes are a good idea. They are containers for data where the class/type of data needs to be stated up front so downstream functions get the correcty formatted objects.
+This is why classes are a good idea. They are containers for data where the class/type 
+of data needs to be stated up front so downstream functions get the correctly formatted objects.
 
 ### S4 classes
 
-You can think of S4 classes as a list where everything is checked first before the list is made. Lets make a simple S4 class called `scell`:
+You can think of S4 classes as a list where everything is checked first before the list is made. 
+Lets make a simple S4 class called `scell`:
 
 ```{r}
 setClass("scell",slots=c(data="matrix"))
 ```
-This sets up an S4 class where it expects a matrix for it to be instantiated. Lets try and instantiate a `scell` class by calling `new` using the data you read into `exp.vals`:
+This sets up an S4 class where it expects a matrix for it to be instantiated. 
+Lets try and instantiate a `scell` class by calling `new` using the data you read into `exp.vals`:
 
 ```{r,eval=F}
 hspc.s4 <- new("scell",data=exp.vals)
 ```
 
-Didn't work did it? When we call new is cheks to see that the slot `data` is of type `matrix`. In this case we gave a `data.frame` which is why it failed. To make it work we need to do:
+Didn't work did it? When we call new is checks to see that the slot `data` is of type `matrix`.
+ In this case we gave a `data.frame` which is why it failed. To make it work we need to do:
 
 ```{r}
 hspc.s4 <- new("scell",data=as.matrix(exp.vals))
 ```
 
-This works. The `scell` object gets a required matrix and a new object `hspc.s4` which is an S4 class is made. Elemants of an S4 class are kept in `slots` and we can access them using the `@` symbol.
+This works. The `scell` object gets a required matrix and a new object `hspc.s4` which is an S4 class is made. 
+Elements of an S4 class are kept in `slots` and we can access them using the `@` symbol.
 
 ```{r}
 hspc.s4@data[1:10,1:10] # first 10 rows and 10 columns
 ````
 
 ***Exercise***
-Write a function called `get.var.genes` that will take a `scell` S4 object and calculate the top N most variable genes (i.e we want a vector of gene names). The basis of the code is in the RI tutorial. Hint: the function that you create will need two input arguments.
+Write a function called `get.var.genes` that will take a `scell` S4 object and calculate the top N most 
+variable genes (i.e we want a vector of gene names). The basis of the code is in the RI tutorial. 
+Hint: the function that you create will need two input arguments.
 
 ```{r}
 
@@ -123,7 +136,9 @@ Lets try and run this and get the top 10 maost variable genes:
 ```{r}
 get.var.genes(hspc.s4,10)
 ```
-Ok, this seems to work nicely. All we need to do now is put the results somewhere convenient, and the best place for this is back in the `hspc.s4` object in another slot called `var.genes`. Lets modify the function to do this:
+Ok, this seems to work nicely. All we need to do now is put the results somewhere convenient, and the best
+ place for this is back in the `hspc.s4` object in another slot called `var.genes`. Lets modify the function 
+ to do this:
 
 ```{r}
 get.var.genes <- function(sco,nvar){
@@ -140,7 +155,8 @@ hspc.s4 <- get.var.genes(hspc.s4,10)
 ```
 Did it work? Did it f**k. Why not?
 
-We need to have a slot made in the S4 calss up front before we try to populate it. In this case we know that we have a characters being returned, so we it will be of type `character`.
+We need to have a slot made in the S4 calss up front before we try to populate it. In this case we know that 
+we have a characters being returned, so we it will be of type `character`.
 ```{r}
 setClass("scell",slots=c(data="matrix",var.genes="character"))
 ```
@@ -156,11 +172,17 @@ Run the var genes function again:
 hspc.s4 <- get.var.genes(hspc.s4,10)
 hspc.s4@var.genes
 ```
-It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store further down that line, and helps you regularise your functions. If we were using lists you could make slots on-the-fly and this normally leads to downstream chaos.
+It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store 
+further down that line, and helps you regularise your functions. If we were using lists you could make slots 
+on-the-fly and this normally leads to downstream chaos.
 
 ### Packages
 
-After a while you start to develop a large back of functions and classes which you use routinely in your work as you get more confident working in R. While you could keep all these functions in an R script, the nicer thing to do would be to roll them all into a package. Packages also make you do something very important, and that is document your code. Useful for when yo go back to things after a long time. To do this we need to install two packages to help us, `devtools` and `roxygen2`.
+After a while you start to develop a large back of functions and classes which you use routinely in 
+your work as you get more confident working in R. While you could keep all these functions in an R script, 
+the nicer thing to do would be to roll them all into a package. Packages also make you do something very important, 
+and that is document your code. Useful for when you go back to things after a long time. To do this we need to install
+ two packages to help us, `devtools` and `roxygen2`.
 
 ```{r,eval=F}
 install.packages(devtools)
@@ -178,11 +200,14 @@ You create the start of a new package using the `create` function. Create a pack
 ```{r,eval=F}
 create("MyFirstPackage")
 ```
-When you have done that set the working directory to the folder that was just created. If you go the files panel on the bottom-right side you will see a "Files" tab. Use that to navigate to the "MyFirstPackage" folder. In there you will see a few things. Open the "DESCRIPTION" file to see whats in it.
+When you have done that set the working directory to the folder that was just created. 
+If you go the files panel on the bottom-right side you will see a "Files" tab. Use that to navigate 
+to the "MyFirstPackage" folder. In there you will see a few things. Open the "DESCRIPTION" file to see what's in it.
 
 Lets start banking our functions in this package. Go to "File" -> "New File" -> "R Script"
 
-Its always a good idea to make many R scipts with less in them, than having one R scipt with everything in it. In this script the only thing we want to do is define the class. It looks a little like this:
+Its always a good idea to make many R scripts with less in them, than having one R script with everything in it. 
+In this script the only thing we want to do is define the class. It looks a little like this:
 
 ```{r,eval=F}
 #'Class defintion of an scell object
@@ -191,15 +216,18 @@ Its always a good idea to make many R scipts with less in them, than having one 
 setClass("scell",slots=c(data="matrix",var.genes="character"))
 ```
 
-Thats it! Save the script in the "R" folder which is where all the scripts should be kept. Call it `scellClass.R`. What you need to do now is call the `document()` function:
+Thats it! Save the script in the "R" folder which is where all the scripts should be kept. 
+Call it `scellClass.R`. What you need to do now is call the `document()` function:
 
 ```{r,eval=F}
 document()
 ```
 
-This takes the lines of documentation that you created an forms the manual that you have in the newly created "man" folder. It also updates other files automatically such as the NAMESPACE file.
+This takes the lines of documentation that you created an forms the manual that you have in the newly created "man" 
+folder. It also updates other files automatically such as the NAMESPACE file.
 
-Now lets make a new R script that contains the function that gets the variable genes. Open a new R scripts and put in the following:
+Now lets make a new R script that contains the function that gets the variable genes. Open a new R scripts and 
+put in the following:
 
 ```{r,eval=F}
 #'Calculates the top N variable genes from a scell object
@@ -220,7 +248,9 @@ Save the file as "GetVarGenes.R" in the "R" folder and now run:
 ```{r,eval=F}
 document()
 ```
-The new function will be added to the manual pages, and thats it, you have now made your first R package that lets you make a new scell class and then calculate the N top variable genes. All we need to do now is install it, and we do this by issuing the command:
+The new function will be added to the manual pages, and thats it, you have now made your first R package 
+that lets you make a new scell class and then calculate the N top variable genes. 
+All we need to do now is install it, and we do this by issuing the command:
 
 ```{r,eval=F}
 install()
@@ -242,13 +272,16 @@ hspc.s4@var.genes[1:10]
 
 We have the rudiments of a package here, so lets expand on it some more and make it do two more things:
 
-* Make a function that reads the inputfile and makes an scell object imediately.
+* Make a function that reads the input file and makes an scell object immediately.
 * Plots a heatmap of the N variable genes you find from using the earlier function.
 
 Go!
 
 
-Now we're going to extend the capabilities of our package by making a function that will perform a tSNE of the data and plot it in 3D. The first thing we need to do is make sure `MyFirstPackage` can also install other packages it needs to function. In this case we need the `Rtsne` and the `rgl` package. To do this open up the "DESCRIPTION" file and alter it to look like this:
+Now we're going to extend the capabilities of our package by making a function that will 
+perform a tSNE of the data and plot it in 3D. The first thing we need to do is make sure 
+`MyFirstPackage` can also install other packages it needs to function. In this case we need the 
+`Rtsne` and the `rgl` package. To do this open up the "DESCRIPTION" file and alter it to look like this:
 
 ```{r,eval=F}
 Package: MyFirstPackage
@@ -256,7 +289,8 @@ Title: What the Package Does (one line, title case)
 Version: 0.0.0.9000
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
-Depends: R (>= 3.5.2),
+Depends: R (>= 3.4.0),
+  pheatmap,
   Rtsne,
   rgl
 License: What license is it under?
@@ -264,14 +298,18 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 ```
-What happens now is that when `MyFirstPackage` is installed `Rtsne` and `rgl` packages will be installed if they aren't already. Issue the `document()` and `install()` command again after you have saved this file:
+What happens now is that when `MyFirstPackage` is installed `Rtsne` and `rgl` packages 
+will be installed if they aren't already. Issue the `document()` and `install()` 
+command again after you have saved this file:
 
 ```{r,eval=F}
 install()
 ```
 You will see that it now installs the required extra packages.
 
-***Exercise*** Go the help page for `Rtsne` and work out how to use it. Use it to calcultate a tSNE over 3 dimensions on the hspc.s4 data using the variable genes only. Fins where these co-ordinates are kept in hte output.
+***Exercise*** Go the help page for `Rtsne` and work out how to use it. Use it to calculate a tSNE over 
+3 dimensions on the hspc.s4 data using the variable genes only.
+Find where these coordinates are kept in the output.
 
 
 ```{r,eval=FALSE}
@@ -280,7 +318,10 @@ dim(tsne.out)
 class(tsne.out)
 ```
 
-***Exercise*** Write a function called `CalcTSNE` that takes a `scell` object and a variable `ndim` (that indicates how may dimensions you want to calculate over) and calcultes the tSNE and then puts the coordinates in a slot called `tsne`. Put this into your package in a script called `DimensionReduction.R` and reinstall your package.
+***Exercise*** Write a function called `CalcTSNE` that takes a `scell` object and a variable `ndim` 
+(that indicates how may dimensions you want to calculate over) and calculates the tSNE and then puts 
+the coordinates in a slot called `tsne`. Put this into your package in a script called `DimensionReduction.R` 
+and reinstall your package.
 
 Lets try it out on our `hspc.s4` object:
 ```{r,eval=F}
@@ -295,14 +336,23 @@ library(rgl)
 rgl.points(hspc.s4@tsne)
 ```
 
-At this point you now have the rudiments of an R package that you can expand on further. You don't have to build them around S4 classes, but it helps.
+At this point you now have the rudiments of an R package that you can expand on further. 
+You don't have to build them around S4 classes, but it helps.
 
 ### Getting your package out there with Github
 
-Ths is all well and good, but what do you do if you need your R package and you don't have your laptop, or more often, you want to share you package/code with a collaborator? This is where Github (https://github.com/) comes in really handy. Github is an online repository for code popular with most developers.
+This is all well and good, but what do you do if you need your R package and you don't have your laptop, 
+or more often, you want to share you package/code with a collaborator? 
+This is where Github (https://github.com/) comes in really handy. Github is an online repository 
+for code popular with most developers.
 
-Before this workshop you make an account for Github so login now and do the following:
+Before this workshop you made an account for Github so login now and do the following:
 
 1. Create a new repository and call it `MyFirstPackage`
 2. When you have done this you will see some instructions on getting your file up.
+
+@Shamit: Do we want the 'pupils' to link there GitHub account to our StemSystT organization?
+  
+Get your files up.
+
 

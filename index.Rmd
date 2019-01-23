@@ -353,6 +353,19 @@ Before this workshop you made an account for Github so login now and do the foll
 
 @Shamit: Do we want the 'pupils' to link there GitHub account to our StemSystT organization?
   
-Get your files up.
+***Get your files up:***
+
+In the path of your package do this: 
+
+```
+echo "# MyFirstPackage" >> README.md
+git init
+git add --all .
+git commit -m "first commit"
+git remote add origin YourPackageGitRepoCoordinates
+git push -u origin master
+```
+
+
 
 

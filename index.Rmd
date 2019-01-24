@@ -56,6 +56,14 @@ So we can now calculate the column means of any matrix in a list where the matri
 (http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt) and make a list called `hspc` 
 where the expression values are placed in an element called `$data`.
 
+
+```{r someVar, echo=FALSE}
+## this is anoying on every computer I download the tutorial and compile it ;-) 
+if ( ! file.exists( "Mouse_HSPC_reduced.txt" ) ){
+  system( 'wget http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt')
+}
+```
+
 ```{r}
 
 exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="\t")
@@ -131,7 +139,7 @@ get.var.genes <- function(sco,nvar){
 }
 ```
 
-Lets try and run this and get the top 10 maost variable genes:
+Lets try and run this and get the top 10 moast variable genes:
 
 ```{r}
 get.var.genes(hspc.s4,10)
@@ -155,7 +163,7 @@ hspc.s4 <- get.var.genes(hspc.s4,10)
 ```
 Did it work? Did it f**k. Why not?
 
-We need to have a slot made in the S4 calss up front before we try to populate it. In this case we know that 
+We need to have a slot made in the S4 class up front before we try to populate it. In this case we know that 
 we have a characters being returned, so we it will be of type `character`.
 ```{r}
 setClass("scell",slots=c(data="matrix",var.genes="character"))
@@ -185,7 +193,7 @@ and that is document your code. Useful for when you go back to things after a lo
  two packages to help us, `devtools` and `roxygen2`.
 
 ```{r,eval=F}
-install.packages(devtools)
+install.packages("devtools")
 install.packages("roxygen2")
 ```
 Then call the libraries:
@@ -198,16 +206,25 @@ Make a new folder called `RPackages` on your laptop and change you working sessi
 
 You create the start of a new package using the `create` function. Create a package called `MyFirstPackage`:
 ```{r,eval=F}
-create("MyFirstPackage")
+create_package("MyFirstPackage")
+## use the find command to inspect the new folder structure
+system( 'find ./')
+
 ```
-When you have done that set the working directory to the folder that was just created. 
+
+This function will create an initial package folder and directly change the working directory to the new folder.
 If you go the files panel on the bottom-right side you will see a "Files" tab. Use that to navigate 
 to the "MyFirstPackage" folder. In there you will see a few things. Open the "DESCRIPTION" file to see what's in it.
 
 Lets start banking our functions in this package. Go to "File" -> "New File" -> "R Script"
 
-Its always a good idea to make many R scripts with less in them, than having one R script with everything in it. 
-In this script the only thing we want to do is define the class. It looks a little like this:
+If you design you package as many small R scripts that define exactly one function and are also named 
+like the function the development of this package will become a lot easier.
+
+In this script the only thing we want to do is define the class - plase name the script '01.class.R'.
+With 01 at the beginning it will always sort first in your directory listings.
+
+The file content looks a little like this:
 
 ```{r,eval=F}
 #'Class defintion of an scell object
@@ -225,6 +242,8 @@ document()
 
 This takes the lines of documentation that you created an forms the manual that you have in the newly created "man" 
 folder. It also updates other files automatically such as the NAMESPACE file.
+
+### The first function get.var.genes
 
 Now lets make a new R script that contains the function that gets the variable genes. Open a new R scripts and 
 put in the following:
@@ -270,6 +289,8 @@ hspc.s4 <- get.var.genes(hspc.s4,500)
 hspc.s4@var.genes[1:10]
 ```
 
+### Your first own functions
+
 We have the rudiments of a package here, so lets expand on it some more and make it do two more things:
 
 * Make a function that reads the input file and makes an scell object immediately.
@@ -277,6 +298,48 @@ We have the rudiments of a package here, so lets expand on it some more and make
 
 Go!
 
+One more note to help you: You can use the devtools::check() function to highlight problems in your functions.
+Do that and use google to understand the problems ;-) Oh and of casue fix them.
+
+And as this might in the end help you we should now also create the test environment:
+ 
+```{r,eval=F}
+usethis::use_testthat()
+```
+
+Please create the file 'tests/testthat/test-MyFirstPackage-class.R' and put this code into the class:
+
+```
+context( 'Class usage')
+set.seed(1)
+dat = matrix(round(rnorm(10000,mean = 1, sd = 1)),ncol=100)
+colnames(dat) <- paste('cell', 1:100)
+rownames(dat) <- paste( 'gene', 1:100)
+x <- new('scell', data=dat)
+
+exp = 'scell'
+attr(exp, 'package') = "MyFirstPackage"
+#message(class( x ))
+expect_equal( class( x ), exp )
+```
+
+I absolutely recommend you to create one test file for each function.
+Populate this test file while you implement the funciton. Trust me - DO IT!
+
+As you go along you now can use this test structure to give you both error messages and help to fix the problems:
+ 
+
+```{r,eval=F}
+devtools::check()
+#fix the errors
+devtools::document()
+devtools::test()
+#run a test - working?
+```
+
+Take your time - this is not easy. But it will help you in the long run.
+
+### Define dependeny packages
 
 Now we're going to extend the capabilities of our package by making a function that will 
 perform a tSNE of the data and plot it in 3D. The first thing we need to do is make sure 
@@ -289,11 +352,16 @@ Title: What the Package Does (one line, title case)
 Version: 0.0.0.9000
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
+Suggests: 
+  testthat
 Depends: R (>= 3.4.0),
+  methods,
+  stats,
+  utils,
   pheatmap,
   Rtsne,
   rgl
-License: What license is it under?
+License: GLP-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
@@ -307,13 +375,15 @@ install()
 ```
 You will see that it now installs the required extra packages.
 
+### Implement a CalcTSNE function
+
 ***Exercise*** Go the help page for `Rtsne` and work out how to use it. Use it to calculate a tSNE over 
 3 dimensions on the hspc.s4 data using the variable genes only.
 Find where these coordinates are kept in the output.
 
 
 ```{r,eval=FALSE}
-tsne.out <- Rtsne(t(hspc.s4@data[hspc.s4@var.genes,]),dims = 3)
+tsne.out <- Rtsne(hspc.s4@data[hspc.s4@var.genes,]),dims = 3)
 dim(tsne.out)
 class(tsne.out)
 ```
@@ -339,7 +409,7 @@ rgl.points(hspc.s4@tsne)
 At this point you now have the rudiments of an R package that you can expand on further. 
 You don't have to build them around S4 classes, but it helps.
 
-### Getting your package out there with Github
+## Getting your package out there with Github
 
 This is all well and good, but what do you do if you need your R package and you don't have your laptop, 
 or more often, you want to share you package/code with a collaborator? 
@@ -366,6 +436,11 @@ git remote add origin YourPackageGitRepoCoordinates
 git push -u origin master
 ```
 
+The easiest way to install this package is from within an R console:
 
+```{r,eval=F}
+## e.g. the example I created last week:
+devtools::install_git('https://github.com/StemTBioinf/Example_MyFirstPackage.git')
+```
 
 

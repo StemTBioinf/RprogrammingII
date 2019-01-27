@@ -22,15 +22,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##            [,1]       [,2]        [,3]       [,4]        [,5]
-    ## [1,] -0.5849883 -0.7953196  2.98572806 -0.1425230 -1.74730830
-    ## [2,]  0.7840952  0.8865208  0.53514622  2.1564923 -2.04998406
-    ## [3,]  0.4519521 -0.5027255 -1.01289882  0.3102988 -2.09864411
-    ## [4,] -0.9848771  0.8924920  0.64961490 -0.9684032  0.06644629
-    ## [5,]  1.6718503 -0.2559193  0.07977897 -0.5213509  0.72447683
-    ## [6,] -0.5040866 -0.7956738  0.38065626 -1.0929672 -0.21728630
-    ## [7,] -1.4704423 -0.4243733  0.24490904  0.3686561 -0.10052553
-    ## [8,] -1.8084148 -0.2964869 -0.77127604 -0.9547395  0.51867420
+    ##             [,1]        [,2]        [,3]       [,4]       [,5]
+    ## [1,] -0.30666107 -0.07283997  1.12516992 -0.6122143  2.0452490
+    ## [2,] -2.16573283  0.52158628 -0.80546569  0.2256967 -1.3063649
+    ## [3,]  0.47584199  1.09407051  3.31044532  0.7470553 -0.6800955
+    ## [4,] -0.23743073 -1.05364485  0.87899514 -2.5292983 -1.1642681
+    ## [5,] -0.66248899 -0.66396117 -1.40642655 -0.1209759 -3.9247909
+    ## [6,]  0.47006154 -0.34447319  0.25659154 -0.5112936 -0.6850472
+    ## [7,]  0.08794872 -0.83670100 -0.04565821 -1.0569913 -0.3190033
+    ## [8,]  0.83631123 -0.78274330  0.10128680 -0.8238085 -1.4056633
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -38,15 +38,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##            [,1]       [,2]        [,3]       [,4]        [,5]
-    ## [1,] -0.5849883 -0.7953196  2.98572806 -0.1425230 -1.74730830
-    ## [2,]  0.7840952  0.8865208  0.53514622  2.1564923 -2.04998406
-    ## [3,]  0.4519521 -0.5027255 -1.01289882  0.3102988 -2.09864411
-    ## [4,] -0.9848771  0.8924920  0.64961490 -0.9684032  0.06644629
-    ## [5,]  1.6718503 -0.2559193  0.07977897 -0.5213509  0.72447683
-    ## [6,] -0.5040866 -0.7956738  0.38065626 -1.0929672 -0.21728630
-    ## [7,] -1.4704423 -0.4243733  0.24490904  0.3686561 -0.10052553
-    ## [8,] -1.8084148 -0.2964869 -0.77127604 -0.9547395  0.51867420
+    ##             [,1]        [,2]        [,3]       [,4]       [,5]
+    ## [1,] -0.30666107 -0.07283997  1.12516992 -0.6122143  2.0452490
+    ## [2,] -2.16573283  0.52158628 -0.80546569  0.2256967 -1.3063649
+    ## [3,]  0.47584199  1.09407051  3.31044532  0.7470553 -0.6800955
+    ## [4,] -0.23743073 -1.05364485  0.87899514 -2.5292983 -1.1642681
+    ## [5,] -0.66248899 -0.66396117 -1.40642655 -0.1209759 -3.9247909
+    ## [6,]  0.47006154 -0.34447319  0.25659154 -0.5112936 -0.6850472
+    ## [7,]  0.08794872 -0.83670100 -0.04565821 -1.0569913 -0.3190033
+    ## [8,]  0.83631123 -0.78274330  0.10128680 -0.8238085 -1.4056633
 
 and subset in the usual way:
 
@@ -54,9 +54,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##           [,1]       [,2]       [,3]      [,4]      [,5]
-    ## [1,] 0.7840952  0.8865208  0.5351462 2.1564923 -2.049984
-    ## [2,] 0.4519521 -0.5027255 -1.0128988 0.3102988 -2.098644
+    ##           [,1]      [,2]       [,3]      [,4]       [,5]
+    ## [1,] -2.165733 0.5215863 -0.8054657 0.2256967 -1.3063649
+    ## [2,]  0.475842 1.0940705  3.3104453 0.7470553 -0.6800955
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -73,7 +73,7 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1] -0.3056139 -0.1614357  0.3864573 -0.1055671 -0.6130189
+    ## [1] -0.1877688 -0.2673383  0.4268673 -0.5852287 -0.9299980
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
@@ -450,6 +450,6 @@ Now that you know how to make a package and push it to GitHub we can now go full
 
 4.  Write a function that will produce a 3D tSNE plot where each cell is coloured according to the cluster it belongs to, i.e 5 clusters means 5 colours in the plot.
 
-5.  Write a funtion that for a given gene will plot a 3D tSNE where each cell is coloured according to the intensity of the genes to give an idea of the gene's expression levels over the dataset.
+5.  Write a function that for a given gene will plot a 3D tSNE where each cell is coloured according to the intensity of the genes to give an idea of the gene's expression levels over the dataset.
 
 ***BONUS exercise:*** For any given cluster, find a package that will allow you to workout over-represented gene ontologies (GO) from the genes in a specified cluster. This might be a pain, lets see how far we get.

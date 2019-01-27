@@ -56,19 +56,9 @@ So we can now calculate the column means of any matrix in a list where the matri
 (http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt) and make a list called `hspc` 
 where the expression values are placed in an element called `$data`.
 
-
-```{r someVar, echo=FALSE}
-## this is anoying on every computer I download the tutorial and compile it ;-) 
-if ( ! file.exists( "Mouse_HSPC_reduced.txt" ) ){
-  system( 'wget http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt')
-}
-```
-
 ```{r}
-
 exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="\t")
 hspc <- list(data=exp.vals)
-
 ```
 Lets use our function from earlier to get the column means:
 ```{r}
@@ -89,16 +79,14 @@ expr.col.mens <- get.col.means(hspc)
 expr.col.mens[1:10] # the first 10 avg values
 ```
 
-This is the problem with functions. They don't check what they are getting, 
-so if they get something incompatible the code will fail and you'll get nothing.
+This is the problem with functions that are applied to lists etc. They do not check what they are getting, so if they get something incompatible the code will fail and you'll get nothing back.
 
 This is why classes are a good idea. They are containers for data where the class/type 
 of data needs to be stated up front so downstream functions get the correctly formatted objects.
 
 ### S4 classes
 
-You can think of S4 classes as a list where everything is checked first before the list is made. 
-Lets make a simple S4 class called `scell`:
+You can think of S4 classes as a list where everything is checked first before the S$ class is made.  Lets make a simple S4 class called `scell`:
 
 ```{r}
 setClass("scell",slots=c(data="matrix"))
@@ -117,16 +105,20 @@ Didn't work did it? When we call new is checks to see that the slot `data` is of
 hspc.s4 <- new("scell",data=as.matrix(exp.vals))
 ```
 
-This works. The `scell` object gets a required matrix and a new object `hspc.s4` which is an S4 class is made. 
-Elements of an S4 class are kept in `slots` and we can access them using the `@` symbol.
+This works. The `scell` object gets a required matrix and a new object `hspc.s4` which is an S4 class is made.  Elements of an S4 class are kept in `slots` and we can access them using the `@` symbol.
 
 ```{r}
 hspc.s4@data[1:10,1:10] # first 10 rows and 10 columns
 ````
 
 ***Exercise***
-Write a function called `get.var.genes` that will take a `scell` S4 object and calculate the top N most 
-variable genes (i.e we want a vector of gene names). The basis of the code is in the RI tutorial. 
+This is fine, but by calling `new` the user still has to remember that the data has to be of class `matrix`. Think of a function that could be written to make the life of a user easier.
+Hint: Have a look at `is.matrix` in the help section.
+
+
+***Exercise***
+Write a function called `get.var.genes` that will take a `scell` S4 object and calculate the top N most  variable genes (i.e we want a vector of gene names). The basis of the code is in the RI tutorial. 
+
 Hint: the function that you create will need two input arguments.
 
 ```{r}
@@ -144,9 +136,7 @@ Lets try and run this and get the top 10 moast variable genes:
 ```{r}
 get.var.genes(hspc.s4,10)
 ```
-Ok, this seems to work nicely. All we need to do now is put the results somewhere convenient, and the best
- place for this is back in the `hspc.s4` object in another slot called `var.genes`. Lets modify the function 
- to do this:
+Ok, this seems to work nicely. All we need to do now is put the results somewhere convenient, and the best place for this is back in the `hspc.s4` object in another slot called `var.genes`. Lets modify the function to do this:
 
 ```{r}
 get.var.genes <- function(sco,nvar){
@@ -163,8 +153,7 @@ hspc.s4 <- get.var.genes(hspc.s4,10)
 ```
 Did it work? Did it f**k. Why not?
 
-We need to have a slot made in the S4 class up front before we try to populate it. In this case we know that 
-we have a characters being returned, so we it will be of type `character`.
+We need to have a slot made in the S4 class up front before we try to populate it. In this case we know that we have a characters being returned, so we it will be of type `character`.
 ```{r}
 setClass("scell",slots=c(data="matrix",var.genes="character"))
 ```

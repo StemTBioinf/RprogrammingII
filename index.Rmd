@@ -377,7 +377,7 @@ The easiest way to install this package is from within an R console:
 devtools::install_git('https://github.com/StemTBioinf/Example_MyFirstPackage.git')
 ```
 
-Now that you know how to make a package and push it to GitHub we can now go full hacker-mode and expand the features of our `scell` class and funtions even more. Let do a couple more things:
+Now that you know how to make a package and push it to GitHub we can now go full hacker-mode and expand the features of our `scell` class and funtions even more. Lets do a few more things to make the `scell` class more useful:
 
 1. Here is a file if index sorting data. These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
 

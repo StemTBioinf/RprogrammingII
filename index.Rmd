@@ -389,8 +389,6 @@ Now that you know how to make a package and push it to GitHub we can now go full
 
 5. Write a funtion that for a given gene will plot a 3D tSNE where each cell is coloured according to the intensity of the genes to give an idea of the gene's expression levels over the dataset.
 
-
-
 ***BONUS exercise:***
 For any given cluster, find a package that will allow you to workout over-represented gene ontologies (GO) from the genes in a specified cluster. This might be a pain, lets see how far we get.
 

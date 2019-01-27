@@ -22,15 +22,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##            [,1]        [,2]       [,3]        [,4]        [,5]
-    ## [1,]  0.2594354  0.48369443  1.9088627  0.09531712  1.16424567
-    ## [2,] -1.1594879 -0.05183062  0.7087505 -1.81759435  0.10455033
-    ## [3,]  0.8305757  1.32457465 -0.3614076  0.23973302  0.09449080
-    ## [4,] -0.7440777 -0.26081510 -2.1996250  1.18999521  1.50781168
-    ## [5,]  0.1506910 -0.69696322 -0.8374209  1.41486955 -0.02587708
-    ## [6,]  1.3541552 -1.35012141 -1.4235890 -0.08968244  0.23329268
-    ## [7,] -0.3635061  0.81181834  0.5075920  0.10167354 -0.86977700
-    ## [8,] -0.6925005 -0.19144629  0.9226576  0.87687674 -0.61913186
+    ##             [,1]       [,2]        [,3]        [,4]        [,5]
+    ## [1,]  0.06070707 -0.7336030 -0.78810437 -0.12457885 -1.37291263
+    ## [2,] -0.25574616  1.6926464 -0.04691345  0.07869326 -1.92813441
+    ## [3,]  2.43363048 -0.4606863 -0.80123238  0.49776646 -0.06008629
+    ## [4,] -0.94365106 -0.3195008 -0.39237269 -0.76773645 -0.08701171
+    ## [5,]  1.29690344 -0.8512029 -0.36452085 -0.94105536 -0.40319024
+    ## [6,] -0.07519200 -0.8057361 -0.73316390 -0.07258744  0.11845277
+    ## [7,]  0.66421264  0.1246473  0.52394729 -1.02460716 -0.96640188
+    ## [8,]  0.42657610 -0.4648958  0.92788837  1.05230597 -0.51724227
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -38,15 +38,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##            [,1]        [,2]       [,3]        [,4]        [,5]
-    ## [1,]  0.2594354  0.48369443  1.9088627  0.09531712  1.16424567
-    ## [2,] -1.1594879 -0.05183062  0.7087505 -1.81759435  0.10455033
-    ## [3,]  0.8305757  1.32457465 -0.3614076  0.23973302  0.09449080
-    ## [4,] -0.7440777 -0.26081510 -2.1996250  1.18999521  1.50781168
-    ## [5,]  0.1506910 -0.69696322 -0.8374209  1.41486955 -0.02587708
-    ## [6,]  1.3541552 -1.35012141 -1.4235890 -0.08968244  0.23329268
-    ## [7,] -0.3635061  0.81181834  0.5075920  0.10167354 -0.86977700
-    ## [8,] -0.6925005 -0.19144629  0.9226576  0.87687674 -0.61913186
+    ##             [,1]       [,2]        [,3]        [,4]        [,5]
+    ## [1,]  0.06070707 -0.7336030 -0.78810437 -0.12457885 -1.37291263
+    ## [2,] -0.25574616  1.6926464 -0.04691345  0.07869326 -1.92813441
+    ## [3,]  2.43363048 -0.4606863 -0.80123238  0.49776646 -0.06008629
+    ## [4,] -0.94365106 -0.3195008 -0.39237269 -0.76773645 -0.08701171
+    ## [5,]  1.29690344 -0.8512029 -0.36452085 -0.94105536 -0.40319024
+    ## [6,] -0.07519200 -0.8057361 -0.73316390 -0.07258744  0.11845277
+    ## [7,]  0.66421264  0.1246473  0.52394729 -1.02460716 -0.96640188
+    ## [8,]  0.42657610 -0.4648958  0.92788837  1.05230597 -0.51724227
 
 and subset in the usual way:
 
@@ -54,9 +54,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##            [,1]        [,2]       [,3]      [,4]      [,5]
-    ## [1,] -1.1594879 -0.05183062  0.7087505 -1.817594 0.1045503
-    ## [2,]  0.8305757  1.32457465 -0.3614076  0.239733 0.0944908
+    ##            [,1]       [,2]        [,3]       [,4]        [,5]
+    ## [1,] -0.2557462  1.6926464 -0.04691345 0.07869326 -1.92813441
+    ## [2,]  2.4336305 -0.4606863 -0.80123238 0.49776646 -0.06008629
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -73,7 +73,7 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1] -0.045589363  0.008613848 -0.096772469  0.251398549  0.198700652
+    ## [1]  0.4509301 -0.2272914 -0.2093090 -0.1627249 -0.6520658
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
@@ -348,41 +348,7 @@ We have the rudiments of a package here, so lets expand on it some more and make
 
 Go!
 
-One more note to help you: You can use the devtools::check() function to highlight problems in your functions. Do that and use google to understand the problems ;-) Oh and of casue fix them.
-
-And as this might in the end help you we should now also create the test environment:
-
-``` r
-usethis::use_testthat()
-```
-
-Please create the file 'tests/testthat/test-MyFirstPackage-class.R' and put this code into the class:
-
-    context( 'Class usage')
-    set.seed(1)
-    dat = matrix(round(rnorm(10000,mean = 1, sd = 1)),ncol=100)
-    colnames(dat) <- paste('cell', 1:100)
-    rownames(dat) <- paste( 'gene', 1:100)
-    x <- new('scell', data=dat)
-
-    exp = 'scell'
-    attr(exp, 'package') = "MyFirstPackage"
-    #message(class( x ))
-    expect_equal( class( x ), exp )
-
-I absolutely recommend you to create one test file for each function. Populate this test file while you implement the funciton. Trust me - DO IT!
-
-As you go along you now can use this test structure to give you both error messages and help to fix the problems:
-
-``` r
-devtools::check()
-#fix the errors
-devtools::document()
-devtools::test()
-#run a test - working?
-```
-
-Take your time - this is not easy. But it will help you in the long run.
+One more thing to help you: You can use the devtools::check() function to highlight problems in your code/functions.
 
 ### Define dependency packages
 
@@ -480,6 +446,10 @@ Now that you know how to make a package and push it to GitHub we can now go full
 
 2.  Write some code that allows you to cluster and split the data into N partitions and store the cluster memberships somewhere in your class.
 
-3.  Write a funtion that for any specified cluster the finction will produce a violin or beanplot for each of the markers in the facs data to show the overall surface marker profiles of the selected cluster.
+3.  Write a function that for any specified cluster the finction will produce a violin or beanplot for each of the markers in the facs data to show the overall surface marker profiles of the selected cluster.
+
+4.  Write a function that will produce a 3D tSNE plot where each cell is coloured according to the cluster it belongs to, i.e 5 clusters means 5 colours in the plot.
+
+5.  Write a funtion that for a given gene will plot a 3D tSNE where each cell is coloured according to the intensity of the genes to give an idea of the gene's expression levels over the dataset.
 
 ***BONUS exercise:*** For any given cluster, find a package that will allow you to workout over-represented gene ontologies (GO) from the genes in a specified cluster. This might be a pain, lets see how far we get.

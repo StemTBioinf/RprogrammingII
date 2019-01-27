@@ -1,6 +1,6 @@
 ---
 title: "Foundations of R programming II"
-author: "Shamit Soneji"
+author: "Shamit Soneji & Stefan Lang"
 date: "12/10/2018"
 output: rmarkdown::github_document
 ---

@@ -1,7 +1,6 @@
 Foundations of R programming II
 ================
-Shamit Soneji
-12/10/2018
+Shamit Soneji & Stefan Lang
 
 Shit gets real now.....
 -----------------------
@@ -23,15 +22,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##            [,1]        [,2]       [,3]        [,4]       [,5]
-    ## [1,] -2.1680585  0.05168145  0.6531938  0.06676901 -0.5074287
-    ## [2,] -0.0506690 -0.57581081 -0.2410214  1.17383513 -1.0295851
-    ## [3,] -0.3919466 -1.86576135 -0.3871411  0.65508478  1.5623209
-    ## [4,] -0.9029955  0.30196774  0.8566382 -0.64720130 -0.9583487
-    ## [5,] -1.0955981 -1.38801146  0.3059242 -0.51183962 -0.8077509
-    ## [6,] -1.1716755  1.22062087 -0.3037344 -1.15168845 -1.1135498
-    ## [7,]  0.3845672  0.68453648 -0.4180752  0.12435473 -0.7736127
-    ## [8,]  0.5103894  1.07345230  0.7959383  0.74808956  0.4827913
+    ##            [,1]        [,2]       [,3]        [,4]        [,5]
+    ## [1,]  0.2594354  0.48369443  1.9088627  0.09531712  1.16424567
+    ## [2,] -1.1594879 -0.05183062  0.7087505 -1.81759435  0.10455033
+    ## [3,]  0.8305757  1.32457465 -0.3614076  0.23973302  0.09449080
+    ## [4,] -0.7440777 -0.26081510 -2.1996250  1.18999521  1.50781168
+    ## [5,]  0.1506910 -0.69696322 -0.8374209  1.41486955 -0.02587708
+    ## [6,]  1.3541552 -1.35012141 -1.4235890 -0.08968244  0.23329268
+    ## [7,] -0.3635061  0.81181834  0.5075920  0.10167354 -0.86977700
+    ## [8,] -0.6925005 -0.19144629  0.9226576  0.87687674 -0.61913186
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -39,15 +38,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##            [,1]        [,2]       [,3]        [,4]       [,5]
-    ## [1,] -2.1680585  0.05168145  0.6531938  0.06676901 -0.5074287
-    ## [2,] -0.0506690 -0.57581081 -0.2410214  1.17383513 -1.0295851
-    ## [3,] -0.3919466 -1.86576135 -0.3871411  0.65508478  1.5623209
-    ## [4,] -0.9029955  0.30196774  0.8566382 -0.64720130 -0.9583487
-    ## [5,] -1.0955981 -1.38801146  0.3059242 -0.51183962 -0.8077509
-    ## [6,] -1.1716755  1.22062087 -0.3037344 -1.15168845 -1.1135498
-    ## [7,]  0.3845672  0.68453648 -0.4180752  0.12435473 -0.7736127
-    ## [8,]  0.5103894  1.07345230  0.7959383  0.74808956  0.4827913
+    ##            [,1]        [,2]       [,3]        [,4]        [,5]
+    ## [1,]  0.2594354  0.48369443  1.9088627  0.09531712  1.16424567
+    ## [2,] -1.1594879 -0.05183062  0.7087505 -1.81759435  0.10455033
+    ## [3,]  0.8305757  1.32457465 -0.3614076  0.23973302  0.09449080
+    ## [4,] -0.7440777 -0.26081510 -2.1996250  1.18999521  1.50781168
+    ## [5,]  0.1506910 -0.69696322 -0.8374209  1.41486955 -0.02587708
+    ## [6,]  1.3541552 -1.35012141 -1.4235890 -0.08968244  0.23329268
+    ## [7,] -0.3635061  0.81181834  0.5075920  0.10167354 -0.86977700
+    ## [8,] -0.6925005 -0.19144629  0.9226576  0.87687674 -0.61913186
 
 and subset in the usual way:
 
@@ -55,9 +54,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##            [,1]       [,2]       [,3]      [,4]      [,5]
-    ## [1,] -0.0506690 -0.5758108 -0.2410214 1.1738351 -1.029585
-    ## [2,] -0.3919466 -1.8657614 -0.3871411 0.6550848  1.562321
+    ##            [,1]        [,2]       [,3]      [,4]      [,5]
+    ## [1,] -1.1594879 -0.05183062  0.7087505 -1.817594 0.1045503
+    ## [2,]  0.8305757  1.32457465 -0.3614076  0.239733 0.0944908
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -74,7 +73,7 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1] -0.61074832 -0.06216560  0.15771528  0.05717548 -0.39314545
+    ## [1] -0.045589363  0.008613848 -0.096772469  0.251398549  0.198700652
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
@@ -114,13 +113,13 @@ expr.col.mens[1:10] # the first 10 avg values
     ##  LTHSC.9 LTHSC.10 
     ## 2.079043 2.682019
 
-This is the problem with functions. They don't check what they are getting, so if they get something incompatible the code will fail and you'll get nothing.
+This is the problem with functions that are applied to lists etc. They do not check what they are getting, so if they get something incompatible the code will fail and you'll get nothing back.
 
 This is why classes are a good idea. They are containers for data where the class/type of data needs to be stated up front so downstream functions get the correctly formatted objects.
 
 ### S4 classes
 
-You can think of S4 classes as a list where everything is checked first before the list is made. Lets make a simple S4 class called `scell`:
+You can think of S4 classes as a list where everything is checked first before the S$ class is made. Lets make a simple S4 class called `scell`:
 
 ``` r
 setClass("scell",slots=c(data="matrix"))
@@ -167,7 +166,7 @@ hspc.s4@data[1:10,1:10] # first 10 rows and 10 columns
     ## Zfp947   0.4716092  0.000000 0.000000
     ## Atad2    8.4770954  2.512690 1.835594
 
-***Exercise*** This is fine, but by calling `new` the user still has to remember that the data has to be of class `matrix`. Think of a function that could be written to make the life of a user easier.
+***Exercise*** This is fine, but by calling `new` the user still has to remember that the data has to be of class `matrix`. Think of a function that could be written to make the life of a user easier. Hint: Have a look at `is.matrix` in the help section.
 
 ***Exercise*** Write a function called `get.var.genes` that will take a `scell` S4 object and calculate the top N most variable genes (i.e we want a vector of gene names). The basis of the code is in the RI tutorial.
 
@@ -385,7 +384,7 @@ devtools::test()
 
 Take your time - this is not easy. But it will help you in the long run.
 
-### Define dependeny packages
+### Define dependency packages
 
 Now we're going to extend the capabilities of our package by making a function that will perform a tSNE of the data and plot it in 3D. The first thing we need to do is make sure `MyFirstPackage` can also install other packages it needs to function. In this case we need the `Rtsne` and the `rgl` package. To do this open up the "DESCRIPTION" file and alter it to look like this:
 
@@ -450,14 +449,12 @@ At this point you now have the rudiments of an R package that you can expand on 
 Getting your package out there with Github
 ------------------------------------------
 
-This is all well and good, but what do you do if you need your R package and you don't have your laptop, or more often, you want to share you package/code with a collaborator? This is where Github (<https://github.com/>) comes in really handy. Github is an online repository for code popular with most developers.
+This is all well and good, but what do you do if you need your R package and you don't have your laptop, or more often, you want to share you package/code with a collaborator? This is where Github (<https://github.com/>) comes in really handy. Github is an online repositor for code popular with most developers.
 
 Before this workshop you made an account for Github so login now and do the following:
 
 1.  Create a new repository and call it `MyFirstPackage`
 2.  When you have done this you will see some instructions on getting your file up.
-
-@Shamit: Do we want the 'pupils' to link there GitHub account to our StemSystT organization?
 
 ***Get your files up:***
 
@@ -476,3 +473,13 @@ The easiest way to install this package is from within an R console:
 ## e.g. the example I created last week:
 devtools::install_git('https://github.com/StemTBioinf/Example_MyFirstPackage.git')
 ```
+
+Now that you know how to make a package and push it to GitHub we can now go full hacker-mode and expand the features of our `scell` class and funtions even more. Let do a couple more things:
+
+1.  Here is a file if index sorting data. These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
+
+2.  Write some code that allows you to cluster and split the data into N partitions and store the cluster memberships somewhere in your class.
+
+3.  Write a funtion that for any specified cluster the finction will produce a violin or beanplot for each of the markers in the facs data to show the overall surface marker profiles of the selected cluster.
+
+***BONUS exercise:*** For any given cluster, find a package that will allow you to workout over-represented gene ontologies (GO) from the genes in a specified cluster. This might be a pain, lets see how far we get.

@@ -1,7 +1,6 @@
 ---
 title: "Foundations of R programming II"
 author: "Shamit Soneji & Stefan Lang"
-date: "12/10/2018"
 output: rmarkdown::github_document
 ---
 
@@ -169,17 +168,11 @@ Run the var genes function again:
 hspc.s4 <- get.var.genes(hspc.s4,10)
 hspc.s4@var.genes
 ```
-It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store 
-further down that line, and helps you regularise your functions. If we were using lists you could make slots 
-on-the-fly and this normally leads to downstream chaos.
+It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store  further down that line, and helps you regularise your functions. If we were using lists you could make slots  on-the-fly and this normally leads to downstream chaos.
 
 ### Packages
 
-After a while you start to develop a large back of functions and classes which you use routinely in 
-your work as you get more confident working in R. While you could keep all these functions in an R script, 
-the nicer thing to do would be to roll them all into a package. Packages also make you do something very important, 
-and that is document your code. Useful for when you go back to things after a long time. To do this we need to install
- two packages to help us, `devtools` and `roxygen2`.
+After a while you start to develop a large back of functions and classes which you use routinely in your work as you get more confident working in R. While you could keep all these functions in an R script, the nicer thing to do would be to roll them all into a package. Packages also make you do something very important,  and that is document your code. Useful for when you go back to things after a long time. To do this we need to install two packages to help us, `devtools` and `roxygen2`.
 
 ```{r,eval=F}
 install.packages("devtools")
@@ -287,48 +280,9 @@ We have the rudiments of a package here, so lets expand on it some more and make
 
 Go!
 
-One more note to help you: You can use the devtools::check() function to highlight problems in your functions.
-Do that and use google to understand the problems ;-) Oh and of casue fix them.
+One more thing to help you: You can use the devtools::check() function to highlight problems in your code/functions.
 
-And as this might in the end help you we should now also create the test environment:
- 
-```{r,eval=F}
-usethis::use_testthat()
-```
-
-Please create the file 'tests/testthat/test-MyFirstPackage-class.R' and put this code into the class:
-
-```
-context( 'Class usage')
-set.seed(1)
-dat = matrix(round(rnorm(10000,mean = 1, sd = 1)),ncol=100)
-colnames(dat) <- paste('cell', 1:100)
-rownames(dat) <- paste( 'gene', 1:100)
-x <- new('scell', data=dat)
-
-exp = 'scell'
-attr(exp, 'package') = "MyFirstPackage"
-#message(class( x ))
-expect_equal( class( x ), exp )
-```
-
-I absolutely recommend you to create one test file for each function.
-Populate this test file while you implement the funciton. Trust me - DO IT!
-
-As you go along you now can use this test structure to give you both error messages and help to fix the problems:
- 
-
-```{r,eval=F}
-devtools::check()
-#fix the errors
-devtools::document()
-devtools::test()
-#run a test - working?
-```
-
-Take your time - this is not easy. But it will help you in the long run.
-
-### Define dependeny packages
+### Define dependency packages
 
 Now we're going to extend the capabilities of our package by making a function that will 
 perform a tSNE of the data and plot it in 3D. The first thing we need to do is make sure 
@@ -366,8 +320,7 @@ You will see that it now installs the required extra packages.
 
 ### Implement a CalcTSNE function
 
-***Exercise*** Go the help page for `Rtsne` and work out how to use it. Use it to calculate a tSNE over 
-3 dimensions on the hspc.s4 data using the variable genes only.
+***Exercise*** Go the help page for `Rtsne` and work out how to use it. Use it to calculate a tSNE over 3 dimensions on the hspc.s4 data using the variable genes only.
 Find where these coordinates are kept in the output.
 
 
@@ -377,10 +330,7 @@ dim(tsne.out)
 class(tsne.out)
 ```
 
-***Exercise*** Write a function called `CalcTSNE` that takes a `scell` object and a variable `ndim` 
-(that indicates how may dimensions you want to calculate over) and calculates the tSNE and then puts 
-the coordinates in a slot called `tsne`. Put this into your package in a script called `DimensionReduction.R` 
-and reinstall your package.
+***Exercise*** Write a function called `CalcTSNE` that takes a `scell` object and a variable `ndim`  (that indicates how may dimensions you want to calculate over) and calculates the tSNE and then puts the coordinates in a slot called `tsne`. Put this into your package in a script called `DimensionReduction.R` and reinstall your package.
 
 Lets try it out on our `hspc.s4` object:
 ```{r,eval=F}
@@ -400,18 +350,13 @@ You don't have to build them around S4 classes, but it helps.
 
 ## Getting your package out there with Github
 
-This is all well and good, but what do you do if you need your R package and you don't have your laptop, 
-or more often, you want to share you package/code with a collaborator? 
-This is where Github (https://github.com/) comes in really handy. Github is an online repository 
-for code popular with most developers.
+This is all well and good, but what do you do if you need your R package and you don't have your laptop,  or more often, you want to share you package/code with a collaborator?  This is where Github (https://github.com/) comes in really handy. Github is an online repositor for code popular with most developers.
 
 Before this workshop you made an account for Github so login now and do the following:
 
 1. Create a new repository and call it `MyFirstPackage`
 2. When you have done this you will see some instructions on getting your file up.
 
-@Shamit: Do we want the 'pupils' to link there GitHub account to our StemSystT organization?
-  
 ***Get your files up:***
 
 In the path of your package do this: 
@@ -431,5 +376,17 @@ The easiest way to install this package is from within an R console:
 ## e.g. the example I created last week:
 devtools::install_git('https://github.com/StemTBioinf/Example_MyFirstPackage.git')
 ```
+
+Now that you know how to make a package and push it to GitHub we can now go full hacker-mode and expand the features of our `scell` class and funtions even more. Let do a couple more things:
+
+1. Here is a file if index sorting data. These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
+
+2. Write some code that allows you to cluster and split the data into N partitions and store the cluster memberships somewhere in your class.
+
+3. Write a funtion that for any specified cluster the finction will produce a violin or beanplot for each of the markers in the facs data to show the overall surface marker profiles of the selected cluster.
+
+***BONUS exercise:***
+For any given cluster, find a package that will allow you to workout over-represented gene ontologies (GO) from the genes in a specified cluster. This might be a pain, lets see how far we get.
+
 
 

@@ -8,7 +8,7 @@ output: rmarkdown::github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Shit gets real now.....
+## The fun starts now...
 In the first R workshop you were shown the basics of the R language, subsetting vector and matrices, 
 writing functions and basic plotting. Today we're going to roll all that together and start looking at 
 how to wrap all these things up into an R package that will use S4 classes that you will make available on github.
@@ -52,11 +52,11 @@ get.col.means(listex1)
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
 ***Exercise*** Read in the single cell data we used in the last tutorial 
-(http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt) and make a list called `hspc` 
-where the expression values are placed in an element called `$data`.
+(http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced_v2.txt) and make a list called `hspc` 
+where the expression values are placed in an element called `$data`. This is from the same dataset, but slightly different, hence "v2" in the name.
 
 ```{r}
-exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="\t")
+exp.vals <- read.delim("Mouse_HSPC_reduced_v2.txt",row.names=1,header=T,sep="\t")
 hspc <- list(data=exp.vals)
 ```
 Lets use our function from earlier to get the column means:
@@ -379,7 +379,7 @@ devtools::install_git('https://github.com/StemTBioinf/Example_MyFirstPackage.git
 
 Now that you know how to make a package and push it to GitHub we can now go full hacker-mode and expand the features of our `scell` class and funtions even more. Lets do a few more things to make the `scell` class more useful:
 
-1. Here is a file if index sorting data. These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
+1. Here is a file if index sorting data (http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced_IndexSortData.txt). These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
 
 2. Write some code that allows you to cluster and split the data into N partitions and store the cluster memberships somewhere in your class.
 

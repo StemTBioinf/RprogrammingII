@@ -2,8 +2,8 @@ Foundations of R programming II
 ================
 Shamit Soneji & Stefan Lang
 
-Shit gets real now.....
------------------------
+The fun starts now...
+---------------------
 
 In the first R workshop you were shown the basics of the R language, subsetting vector and matrices, writing functions and basic plotting. Today we're going to roll all that together and start looking at how to wrap all these things up into an R package that will use S4 classes that you will make available on github.
 
@@ -22,15 +22,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##             [,1]        [,2]        [,3]       [,4]       [,5]
-    ## [1,] -0.30666107 -0.07283997  1.12516992 -0.6122143  2.0452490
-    ## [2,] -2.16573283  0.52158628 -0.80546569  0.2256967 -1.3063649
-    ## [3,]  0.47584199  1.09407051  3.31044532  0.7470553 -0.6800955
-    ## [4,] -0.23743073 -1.05364485  0.87899514 -2.5292983 -1.1642681
-    ## [5,] -0.66248899 -0.66396117 -1.40642655 -0.1209759 -3.9247909
-    ## [6,]  0.47006154 -0.34447319  0.25659154 -0.5112936 -0.6850472
-    ## [7,]  0.08794872 -0.83670100 -0.04565821 -1.0569913 -0.3190033
-    ## [8,]  0.83631123 -0.78274330  0.10128680 -0.8238085 -1.4056633
+    ##             [,1]       [,2]        [,3]        [,4]       [,5]
+    ## [1,]  1.35917058 -0.2479347  0.84178985 -0.27589430  1.2938950
+    ## [2,]  0.62106700 -0.7071977 -1.15445409  0.65437779 -1.6305996
+    ## [3,]  1.22839924  0.2193439 -0.21976536 -1.17581606  0.5246444
+    ## [4,] -0.31230110 -0.4182266 -0.69493926  0.40792449 -0.8187762
+    ## [5,] -0.19370682 -2.0008255 -0.03570671 -0.07703179 -1.4527403
+    ## [6,]  0.21928199  0.5696887  0.24280735  0.81872301  1.2944001
+    ## [7,]  0.07281591  1.2682688  1.41311662 -0.31319837  0.9853760
+    ## [8,]  0.17196651 -0.3991813 -0.52266836 -0.19821586 -1.7550187
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -38,15 +38,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##             [,1]        [,2]        [,3]       [,4]       [,5]
-    ## [1,] -0.30666107 -0.07283997  1.12516992 -0.6122143  2.0452490
-    ## [2,] -2.16573283  0.52158628 -0.80546569  0.2256967 -1.3063649
-    ## [3,]  0.47584199  1.09407051  3.31044532  0.7470553 -0.6800955
-    ## [4,] -0.23743073 -1.05364485  0.87899514 -2.5292983 -1.1642681
-    ## [5,] -0.66248899 -0.66396117 -1.40642655 -0.1209759 -3.9247909
-    ## [6,]  0.47006154 -0.34447319  0.25659154 -0.5112936 -0.6850472
-    ## [7,]  0.08794872 -0.83670100 -0.04565821 -1.0569913 -0.3190033
-    ## [8,]  0.83631123 -0.78274330  0.10128680 -0.8238085 -1.4056633
+    ##             [,1]       [,2]        [,3]        [,4]       [,5]
+    ## [1,]  1.35917058 -0.2479347  0.84178985 -0.27589430  1.2938950
+    ## [2,]  0.62106700 -0.7071977 -1.15445409  0.65437779 -1.6305996
+    ## [3,]  1.22839924  0.2193439 -0.21976536 -1.17581606  0.5246444
+    ## [4,] -0.31230110 -0.4182266 -0.69493926  0.40792449 -0.8187762
+    ## [5,] -0.19370682 -2.0008255 -0.03570671 -0.07703179 -1.4527403
+    ## [6,]  0.21928199  0.5696887  0.24280735  0.81872301  1.2944001
+    ## [7,]  0.07281591  1.2682688  1.41311662 -0.31319837  0.9853760
+    ## [8,]  0.17196651 -0.3991813 -0.52266836 -0.19821586 -1.7550187
 
 and subset in the usual way:
 
@@ -54,9 +54,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##           [,1]      [,2]       [,3]      [,4]       [,5]
-    ## [1,] -2.165733 0.5215863 -0.8054657 0.2256967 -1.3063649
-    ## [2,]  0.475842 1.0940705  3.3104453 0.7470553 -0.6800955
+    ##          [,1]       [,2]       [,3]       [,4]       [,5]
+    ## [1,] 0.621067 -0.7071977 -1.1544541  0.6543778 -1.6305996
+    ## [2,] 1.228399  0.2193439 -0.2197654 -1.1758161  0.5246444
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -73,14 +73,14 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1] -0.1877688 -0.2673383  0.4268673 -0.5852287 -0.9299980
+    ## [1]  0.39583666 -0.21450805 -0.01622749 -0.01989138 -0.19485241
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
-***Exercise*** Read in the single cell data we used in the last tutorial (<http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced.txt>) and make a list called `hspc` where the expression values are placed in an element called `$data`.
+***Exercise*** Read in the single cell data we used in the last tutorial (<http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced_v2.txt>) and make a list called `hspc` where the expression values are placed in an element called `$data`. This is from the same dataset, but slightly different, hence "v2" in the name.
 
 ``` r
-exp.vals <- read.delim("Mouse_HSPC_reduced.txt",row.names=1,header=T,sep="\t")
+exp.vals <- read.delim("Mouse_HSPC_reduced_v2.txt",row.names=1,header=T,sep="\t")
 hspc <- list(data=exp.vals)
 ```
 
@@ -109,9 +109,9 @@ expr.col.mens[1:10] # the first 10 avg values
 ```
 
     ##  LTHSC.1  LTHSC.2  LTHSC.3  LTHSC.4  LTHSC.5  LTHSC.6  LTHSC.7  LTHSC.8 
-    ## 2.632397 2.762785 2.345211 2.230264 2.650563 3.210026 2.586950 3.188602 
+    ## 2.424127 2.242731 2.629759 2.356785 2.706467 2.966355 3.026223 2.662917 
     ##  LTHSC.9 LTHSC.10 
-    ## 2.079043 2.682019
+    ## 2.915014 3.050313
 
 This is the problem with functions that are applied to lists etc. They do not check what they are getting, so if they get something incompatible the code will fail and you'll get nothing back.
 
@@ -143,28 +143,28 @@ This works. The `scell` object gets a required matrix and a new object `hspc.s4`
 hspc.s4@data[1:10,1:10] # first 10 rows and 10 columns
 ```
 
-    ##           LTHSC.1  LTHSC.2   LTHSC.3  LTHSC.4   LTHSC.5  LTHSC.6   LTHSC.7
-    ## Kdm3a    0.000000 7.326561 1.1412773 0.000000 0.0000000 2.969495 0.0000000
-    ## Coro2b   1.312809 5.699220 0.0000000 0.000000 0.0000000 6.115329 0.0000000
-    ## Phf6     0.000000 1.685035 6.2547479 2.369840 2.1584379 7.823217 7.7356194
-    ## Usp14    1.312809 3.301869 1.7704166 3.223063 6.1064430 8.544492 9.7926774
-    ## Tmem167b 4.233503 0.000000 0.6806675 1.624999 0.0000000 2.969495 7.9009993
-    ## Kbtbd7   0.000000 0.000000 0.6806675 0.000000 0.0000000 2.969495 0.0000000
-    ## Rag2     1.312809 6.940771 1.1412773 5.102268 0.7594648 0.000000 0.0000000
-    ## Hmgcs1   6.562359 1.685035 0.0000000 1.624999 9.4571134 2.969495 0.0000000
-    ## Zfp947   1.988593 0.000000 0.0000000 0.000000 0.0000000 0.000000 0.0000000
-    ## Atad2    8.444245 6.555359 1.7704166 2.858629 1.6222685 5.392170 0.7816531
+    ##           LTHSC.1  LTHSC.2  LTHSC.3   LTHSC.4   LTHSC.5  LTHSC.6  LTHSC.7
+    ## Kdm3a    0.000000 1.079653 0.000000 1.1412773 1.7726083 2.015252 1.981955
+    ## Coro2b   0.000000 1.079653 0.000000 0.0000000 0.0000000 0.000000 0.000000
+    ## Phf6     7.271829 2.117889 8.706240 6.2547479 8.4504358 2.824772 6.530737
+    ## Usp14    3.378561 3.136633 6.286004 1.7704166 7.4176445 9.244268 8.293378
+    ## Tmem167b 9.093340 2.117889 2.170399 0.6806675 0.8524546 2.824772 0.000000
+    ## Kbtbd7   2.861341 9.705688 0.000000 0.6806675 1.3846802 2.015252 0.000000
+    ## Rag2     2.047347 0.000000 1.459819 1.1412773 9.3556223 0.000000 4.704727
+    ## Hmgcs1   8.191854 2.117889 0.000000 0.0000000 6.4328001 0.000000 3.404414
+    ## Zfp947   0.000000 0.000000 0.000000 0.0000000 0.0000000 0.000000 4.822225
+    ## Atad2    2.861341 2.715375 3.000533 1.7704166 7.2521661 3.340211 5.377344
     ##            LTHSC.8   LTHSC.9 LTHSC.10
-    ## Kdm3a    3.9360487  0.000000 0.000000
-    ## Coro2b   0.0000000  7.606749 0.000000
-    ## Phf6     1.1110086  6.217745 3.919389
-    ## Usp14    8.9796021  5.821215 1.835594
-    ## Tmem167b 0.4716092  0.000000 0.000000
-    ## Kbtbd7   2.6810387 10.910051 1.191937
-    ## Rag2     0.0000000  0.000000 1.191937
-    ## Hmgcs1   0.4716092  1.527437 3.122267
-    ## Zfp947   0.4716092  0.000000 0.000000
-    ## Atad2    8.4770954  2.512690 1.835594
+    ## Kdm3a    0.0000000 0.8156131 1.671105
+    ## Coro2b   0.0000000 0.0000000 0.000000
+    ## Phf6     2.1584379 4.2661196 6.840443
+    ## Usp14    6.1064430 3.2265864 4.645611
+    ## Tmem167b 0.0000000 1.7137564 2.917194
+    ## Kbtbd7   0.0000000 0.8156131 2.424699
+    ## Rag2     0.7594648 1.3334763 0.000000
+    ## Hmgcs1   9.4571134 2.6599980 3.283676
+    ## Zfp947   0.0000000 2.2631034 1.671105
+    ## Atad2    1.6222685 1.3334763 4.513860
 
 ***Exercise*** This is fine, but by calling `new` the user still has to remember that the data has to be of class `matrix`. Think of a function that could be written to make the life of a user easier. Hint: Have a look at `is.matrix` in the help section.
 
@@ -187,8 +187,8 @@ Lets try and run this and get the top 10 moast variable genes:
 get.var.genes(hspc.s4,10)
 ```
 
-    ##  [1] "Elane" "Ctsg"  "Mpo"   "Car1"  "Ms4a3" "Mpl"   "Ly6c2" "Klf1" 
-    ##  [9] "Nkg7"  "Ces2g"
+    ##  [1] "Elane"     "Ctsg"      "Mpo"       "Car1"      "Ms4a3"    
+    ##  [6] "Ly6c2"     "Klf1"      "Prtn3"     "Serpina3g" "Aqp1"
 
 Ok, this seems to work nicely. All we need to do now is put the results somewhere convenient, and the best place for this is back in the `hspc.s4` object in another slot called `var.genes`. Lets modify the function to do this:
 
@@ -238,8 +238,8 @@ hspc.s4 <- get.var.genes(hspc.s4,10)
 hspc.s4@var.genes
 ```
 
-    ##  [1] "Elane" "Ctsg"  "Mpo"   "Car1"  "Ms4a3" "Mpl"   "Ly6c2" "Klf1" 
-    ##  [9] "Nkg7"  "Ces2g"
+    ##  [1] "Elane"     "Ctsg"      "Mpo"       "Car1"      "Ms4a3"    
+    ##  [6] "Ly6c2"     "Klf1"      "Prtn3"     "Serpina3g" "Aqp1"
 
 It works. This is the nice thing about S4 classes. You really need to think up-front what you need to store further down that line, and helps you regularise your functions. If we were using lists you could make slots on-the-fly and this normally leads to downstream chaos.
 
@@ -442,7 +442,7 @@ devtools::install_git('https://github.com/StemTBioinf/Example_MyFirstPackage.git
 
 Now that you know how to make a package and push it to GitHub we can now go full hacker-mode and expand the features of our `scell` class and funtions even more. Lets do a few more things to make the `scell` class more useful:
 
-1.  Here is a file if index sorting data. These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
+1.  Here is a file if index sorting data (<http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced_IndexSortData.txt>). These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
 
 2.  Write some code that allows you to cluster and split the data into N partitions and store the cluster memberships somewhere in your class.
 

@@ -63,14 +63,14 @@ Lets use our function from earlier to get the column means:
 ```{r}
 expr.col.mens <- get.col.means(hspc)
 ```
-Oh fark! What happened?
+Did it work? 
 
 The apply function expects a matrix. We can see what type of object hspc$data is by using:
 ```{r}
 class(hspc$data)
 ```
 
-Its a data.frame`. You need to supply a matrix, so lets convert it:
+Its a data.frame`. You need to supply a matrix (also its smaller), so lets convert it:
 
 ```{r}
 hspc$data <- as.matrix(hspc$data)

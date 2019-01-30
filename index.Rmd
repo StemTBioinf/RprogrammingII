@@ -348,6 +348,11 @@ rgl.points(hspc.s4@tsne)
 At this point you now have the rudiments of an R package that you can expand on further. 
 You don't have to build them around S4 classes, but it helps.
 
+### Here is a mental checklist you should apply when you add a function to a class:
+1. Did I just use function from another package? If yes, make sure you add it as a dependency in the DESCRIPTION file.
+2. Does my function produce something that I need to store in my class? If yes, alter your class definition to accomodate the new data.
+3. If I recalculate something in my class do other elements become invalid/incosistent? If yes, empty the element and recalculate if needed.
+
 ## Getting your package out there with Github
 
 This is all well and good, but what do you do if you need your R package and you don't have your laptop,  or more often, you want to share you package/code with a collaborator?  This is where Github (https://github.com/) comes in really handy. Github is an online repositor for code popular with most developers.

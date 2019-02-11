@@ -22,15 +22,15 @@ listex1
     ## [1] "A" "B" "C" "D" "E" "F" "G" "H"
     ## 
     ## $data
-    ##             [,1]       [,2]        [,3]        [,4]       [,5]
-    ## [1,]  0.01411604  0.2260226 -1.11029319  2.52109937  0.5734749
-    ## [2,]  0.73481794  1.4517934  1.48496358 -0.05072306 -0.1349832
-    ## [3,]  0.52109338 -1.1429926 -1.21848625  0.93150310 -1.1495457
-    ## [4,] -1.98131631  0.2063807 -0.22175242 -0.11060935 -1.5722905
-    ## [5,] -0.40496978 -1.4398985  1.58451644  1.00315420 -2.1287377
-    ## [6,]  1.43636718 -1.0558403  0.68122013 -1.18854926 -0.4852532
-    ## [7,] -0.32340291  0.5030677 -0.39542929  0.43625022 -1.0601889
-    ## [8,]  0.52601662 -0.4408582 -0.04208795  0.26936711 -0.4510083
+    ##            [,1]         [,2]         [,3]        [,4]       [,5]
+    ## [1,]  1.1182721  0.244534188  0.506870989 -0.58555615 -1.1536217
+    ## [2,] -0.2187332  0.774109177 -1.318478182  0.16108891 -1.3170798
+    ## [3,]  0.6012696  1.036987950  0.308240104  0.33809339  1.0368474
+    ## [4,] -0.2149794  1.349561052  0.201553757  0.26308959 -1.6600452
+    ## [5,]  0.1129299 -0.399739212  0.005418797  0.07168905  0.8084015
+    ## [6,] -1.9563626  0.009147761 -0.250689229  0.31927253 -0.5952138
+    ## [7,]  0.1678309  1.048768927  0.880003959 -1.20055672  1.5936584
+    ## [8,]  0.5030555 -0.830366306 -0.590328368  0.38677060  0.2480059
 
 You will rememver that elements of a list can be accessed using the `$` character, so:
 
@@ -38,15 +38,15 @@ You will rememver that elements of a list can be accessed using the `$` characte
 listex1$data
 ```
 
-    ##             [,1]       [,2]        [,3]        [,4]       [,5]
-    ## [1,]  0.01411604  0.2260226 -1.11029319  2.52109937  0.5734749
-    ## [2,]  0.73481794  1.4517934  1.48496358 -0.05072306 -0.1349832
-    ## [3,]  0.52109338 -1.1429926 -1.21848625  0.93150310 -1.1495457
-    ## [4,] -1.98131631  0.2063807 -0.22175242 -0.11060935 -1.5722905
-    ## [5,] -0.40496978 -1.4398985  1.58451644  1.00315420 -2.1287377
-    ## [6,]  1.43636718 -1.0558403  0.68122013 -1.18854926 -0.4852532
-    ## [7,] -0.32340291  0.5030677 -0.39542929  0.43625022 -1.0601889
-    ## [8,]  0.52601662 -0.4408582 -0.04208795  0.26936711 -0.4510083
+    ##            [,1]         [,2]         [,3]        [,4]       [,5]
+    ## [1,]  1.1182721  0.244534188  0.506870989 -0.58555615 -1.1536217
+    ## [2,] -0.2187332  0.774109177 -1.318478182  0.16108891 -1.3170798
+    ## [3,]  0.6012696  1.036987950  0.308240104  0.33809339  1.0368474
+    ## [4,] -0.2149794  1.349561052  0.201553757  0.26308959 -1.6600452
+    ## [5,]  0.1129299 -0.399739212  0.005418797  0.07168905  0.8084015
+    ## [6,] -1.9563626  0.009147761 -0.250689229  0.31927253 -0.5952138
+    ## [7,]  0.1678309  1.048768927  0.880003959 -1.20055672  1.5936584
+    ## [8,]  0.5030555 -0.830366306 -0.590328368  0.38677060  0.2480059
 
 and subset in the usual way:
 
@@ -54,9 +54,9 @@ and subset in the usual way:
 listex1$data[2:3,] #prints just rows 2 and 3
 ```
 
-    ##           [,1]      [,2]      [,3]        [,4]       [,5]
-    ## [1,] 0.7348179  1.451793  1.484964 -0.05072306 -0.1349832
-    ## [2,] 0.5210934 -1.142993 -1.218486  0.93150310 -1.1495457
+    ##            [,1]      [,2]       [,3]      [,4]      [,5]
+    ## [1,] -0.2187332 0.7741092 -1.3184782 0.1610889 -1.317080
+    ## [2,]  0.6012696 1.0369880  0.3082401 0.3380934  1.036847
 
 Now we can write a function that takes the average of the columns in the matrix.
 
@@ -73,7 +73,7 @@ The funtion addresses the matrix in the list using `$data` and calculates the co
 get.col.means(listex1)
 ```
 
-    ## [1]  0.06534027 -0.21154066  0.09533138  0.47643654 -0.80106658
+    ## [1]  0.01416035  0.40412544 -0.03217602 -0.03076360 -0.12988093
 
 So we can now calculate the column means of any matrix in a list where the matrix is addressed as `$nums`.
 
@@ -450,14 +450,10 @@ Now that you know how to make a package and push it to GitHub we can now go full
 
 1.  Here is a file if index sorting data (<http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced_IndexSortData.txt>). These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
 
-2.  Write some code that allows you to cluster and split the data into N partitions and store the cluster memberships somewhere in your class.
+2.  Write some code that allows you to cluster and split the CELLS of data into N partitions and store the cluster memberships somewhere in your class.
 
-3.  Write a function that for any specified cluster the finction will produce a violin or beanplot for each of the markers in the facs data to show the overall surface marker profiles of the selected cluster.
+3.  Write a function that for any specified cluster of cells the function will produce a violin or beanplot for each of the markers in the facs data to show the overall surface marker profiles of the selected cluster.
 
 4.  Write a function that will produce a 3D tSNE plot where each cell is coloured according to the cluster it belongs to, i.e 5 clusters means 5 colours in the plot.
 
-5.  Write a function that for a given gene will plot a 3D tSNE where each cell is coloured according to the intensity of the genes to give an idea of the gene's expression levels over the dataset.
-
-***BONUS exercise:*** For any given cluster, find a package that will allow you to workout over-represented gene ontologies (GO) from the genes in a specified cluster. This might be a pain, lets see how far we get.
-
-Hello!
+5.  Write a function that for a GIVEN gene will plot a 3D tSNE where each cell is coloured according to the intensity of the genes to give an idea of the gene's expression levels over the dataset.

@@ -386,19 +386,13 @@ Now that you know how to make a package and push it to GitHub we can now go full
 
 1. Here is a file if index sorting data (http://bone.bmc.lu.se/Public/Mouse_HSPC_reduced_IndexSortData.txt). These cells were assayed for single-cell expression in the dataset we are using. Expand your package so that index sorting data can be loaded into a `facs` slot in your `scell` class.
 
-2. Write some code that allows you to cluster and split the data into N partitions and store the cluster memberships somewhere in your class.
+2. Write some code that allows you to cluster and split the CELLS of data into N partitions and store the cluster memberships somewhere in your class.
 
-3. Write a function that for any specified cluster the finction will produce a violin or beanplot for each of the markers in the facs data to show the overall surface marker profiles of the selected cluster.
+3. Write a function that for any specified cluster of cells the function will produce a violin or beanplot for each of the markers in the facs data to show the overall surface marker profiles of the selected cluster.
 
 4. Write a function that will produce a 3D tSNE plot where each cell is coloured according to the cluster it belongs to, i.e 5 clusters means 5 colours in the plot.
 
-5. Write a function that for a given gene will plot a 3D tSNE where each cell is coloured according to the intensity of the genes to give an idea of the gene's expression levels over the dataset.
-
-***BONUS exercise:***
-For any given cluster, find a package that will allow you to workout over-represented gene ontologies (GO) from the genes in a specified cluster. This might be a pain, lets see how far we get.
-
-
-Hello!
+5. Write a function that for a GIVEN gene will plot a 3D tSNE where each cell is coloured according to the intensity of the genes to give an idea of the gene's expression levels over the dataset.
 
 
 
